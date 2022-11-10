@@ -1,0 +1,6 @@
+.logo {
+    max-width: 142px;
+    min-height: 33px;
+    width: 100%;
+    background-image: url(../../images/logo.svg);
+}
