@@ -1,0 +1,9 @@
+.profile__text {
+    max-width: 336px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    column-gap: 18px;
+    box-sizing: border-box;
+}

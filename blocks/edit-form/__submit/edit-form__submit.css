@@ -1,0 +1,18 @@
+.edit-form__submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+    font: normal 18px/22px 'Inter', sans-serif;
+    margin: 48px auto 0 auto;
+    border-radius: 2px;
+    padding: 14px 0;
+    transition: .5s ease;
+    cursor: pointer;
+}
+
+.edit-form__submit:hover {
+    opacity: .8;
+}

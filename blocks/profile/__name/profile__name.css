@@ -1,0 +1,6 @@
+.profile__name {
+    max-width: 294px;
+    font: 500 42px/48px 'Inter', sans-serif;
+    color: #fff;
+    margin: 0;
+}

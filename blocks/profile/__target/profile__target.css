@@ -1,0 +1,21 @@
+.profile__target {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 49%;
+    left: 44%;
+}
+
+.profile__target::before,
+.profile__target::after {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+}
+
+.profile__target::before {
+    transform: rotate(90deg);
+}

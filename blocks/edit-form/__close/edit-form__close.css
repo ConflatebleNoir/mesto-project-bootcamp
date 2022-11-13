@@ -1,0 +1,32 @@
+.edit-form__close {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -40px;
+    right: 0;
+    cursor: pointer;
+    transition: .5s ease;
+}
+
+.edit-form__close::after,
+.edit-form__close::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 15px;
+    width: 32px;
+    height: 3px;
+    background: #fff;
+}
+
+.edit-form__close::after {
+    transform: rotate(45deg);
+}
+
+.edit-form__close::before {
+    transform: rotate(-45deg);
+}
+
+.edit-form__close:hover {
+    opacity: .4;
+}

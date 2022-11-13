@@ -1,0 +1,7 @@
+.edit-form__name {
+    padding: 0 0 13px 0;
+    margin: 54px 0 0 0;
+    font: normal 14px/17px 'Inter', sans-serif;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}

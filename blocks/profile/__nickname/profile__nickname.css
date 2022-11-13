@@ -1,0 +1,6 @@
+.profile__nickname {
+    max-width: 336px;
+    font: normal 18px/21px 'Inter', sans-serif;
+    color: #fff;
+    margin: 0;
+}

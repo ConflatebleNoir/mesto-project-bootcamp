@@ -1,0 +1,12 @@
+.edit-form__wrapper {
+    max-width: 430px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 34px 36px;
+    box-sizing: border-box;
+}
