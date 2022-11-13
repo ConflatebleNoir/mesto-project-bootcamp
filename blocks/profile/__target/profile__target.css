@@ -2,8 +2,8 @@
     width: 22px;
     height: 22px;
     position: absolute;
-    top: 49%;
-    left: 44%;
+    top: 25%;
+    left: 45%;
 }
 
 .profile__target::before,
@@ -14,8 +14,15 @@
     height: 2px;
     background: #fff;
     position: absolute;
+    top: 10px;
 }
 
 .profile__target::before {
     transform: rotate(90deg);
+}
+
+@media screen and (max-width: 767px) {
+    .profile__target {
+        left: 47%;
+    }
 }

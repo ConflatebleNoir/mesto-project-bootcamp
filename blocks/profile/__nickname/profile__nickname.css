@@ -4,3 +4,12 @@
     color: #fff;
     margin: 0;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__nickname {
+        max-width: 100%;
+        margin-top: 14px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

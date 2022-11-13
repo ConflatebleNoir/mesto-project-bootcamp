@@ -6,3 +6,10 @@
     align-items: center;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__wrapper {
+        max-width: 100%;
+        flex-direction: column;
+    }
+}

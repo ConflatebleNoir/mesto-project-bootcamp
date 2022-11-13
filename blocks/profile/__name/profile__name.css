@@ -4,3 +4,12 @@
     color: #fff;
     margin: 0;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__name {
+        max-width: 100%;
+        font-size: 27px;
+        line-height: 32px;
+        margin-top: 26px;
+    }
+}

@@ -7,3 +7,11 @@
     margin: 40px 0 0 0;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 767px) {
+    .profile {
+        max-width: 100%;
+        flex-direction: column;
+        margin-top: 42px;
+    }
+}

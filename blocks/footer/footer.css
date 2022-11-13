@@ -5,3 +5,17 @@
     padding: 0 0 60px 0;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 1279px) {
+    .footer {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer {
+        max-width: 88%;
+        margin-top: 48px;
+        padding-bottom: 36px;
+    }
+}

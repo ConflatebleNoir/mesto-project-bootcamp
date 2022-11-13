@@ -8,3 +8,15 @@
     overflow: hidden;
     box-sizing: border-box;
 }
+
+@media screen and (max-width: 1279px) {
+    .card {
+        max-width: 48%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .card {
+        max-width: 100%;
+    }
+}

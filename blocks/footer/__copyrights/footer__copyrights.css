@@ -1,4 +1,12 @@
 .footer__copyrights {
     font: normal 18px/21px 'Inter', sans-serif;
     color: #545454;
+    margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__wrapper {
+        max-width: 100%;
+        flex-direction: column;
+    }
 }
