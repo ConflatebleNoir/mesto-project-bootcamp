@@ -2,27 +2,27 @@
 
 //EDIT POPUP!
 //вытягиваем из документа элементы для отображения edit-popup
-const profileCorrection = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.overlay_hidden');
-const popupClose = document.querySelector('.edit-form__close');
+const editProfileButton = document.querySelector('.profile__edit-button');
+const popupProfileOverlay = document.querySelector('#profile-overlay');
+const editPopupClose = popupProfileOverlay.querySelector('.form__close');
 
 //подключаем слушатель на клик
-if (profileCorrection) {
-    profileCorrection.addEventListener('click', function () {
-        popupProfile.classList.add('overlay');
-        popupProfile.classList.remove('overlay_hidden');
+if (editProfileButton) {
+    editProfileButton.addEventListener('click', () => {
+        popupProfileOverlay.classList.add('overlay');
+        popupProfileOverlay.classList.remove('overlay_hidden');
     });
 };
 
-if (popupClose) {
-    popupClose.addEventListener('click', function () {
-        popupProfile.classList.remove('overlay');
-        popupProfile.classList.add('overlay_hidden');
+if (editPopupClose) {
+    editPopupClose.addEventListener('click', () => {
+        popupProfileOverlay.classList.remove('overlay');
+        popupProfileOverlay.classList.add('overlay_hidden');
     });
 };
 
 // Находим форму в DOM
-const formElement = document.querySelector('.edit-form__wrapper');
+const formElement = document.querySelector('#edit-form');
 //достаем тексовые элементы профиля и элементы формы
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__nickname');
@@ -74,10 +74,7 @@ const initialCards = [
     }
 ];
 
-const addButton = document.querySelector('.profile__add-button');
-
-
-function renderNewCard(nameValue, urlValue) {
+function addNewCard(nameValue, urlValue) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('card');
 
@@ -95,4 +92,41 @@ function renderNewCard(nameValue, urlValue) {
     const likeButton = document.createElement('button');
     likeButton.classList.add('card__like');
     likeButton.setAttribute(type, button);
+}
+
+const addButton = document.querySelector('.profile__add-button');
+const popupAddOverlay = document.querySelector('#add-overlay');
+const addForm = popupAddOverlay.querySelector('.form');
+const addPopupClose = popupAddOverlay.querySelector('.form__close');
+
+// addButton.addEventListener('click', function () {
+//     const addForm = document.querySelector('#add-form');
+//     const cardName = editForm.querySelector('.form__title');
+//     const cardUrl = editForm.querySelector('#add__image-url');
+
+//     addNewCard(cardName.value, cardUrl.value);
+//     cardName.value = '';
+//     cardUrl.value = '';
+// });
+
+if (addButton) {
+    addButton.addEventListener('click', () => {
+        popupAddOverlay.classList.add('overlay');
+        popupAddOverlay.classList.remove('overlay_hidden');
+    });
+};
+
+if (addPopupClose) {
+    addPopupClose.addEventListener('click', () => {
+        popupAddOverlay.classList.remove('overlay');
+        popupAddOverlay.classList.add('overlay_hidden');
+    })
+}
+
+function handleFormSubmit(evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    const cardName = addForm.querySelector('#add__image-name');
+    const cardUrl = addForm.querySelector('#add__image-url');
+
+    popupProfile.classList.add('overlay_hidden');
 }
