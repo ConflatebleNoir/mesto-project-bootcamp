@@ -1,4 +1,4 @@
-.overlay__hidden {
+.overlay_hidden {
     opacity: 0;
     visibility: hidden;
 }

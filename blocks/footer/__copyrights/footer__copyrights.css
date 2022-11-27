@@ -4,9 +4,9 @@
     margin: 0;
 }
 
-@media screen and (max-width: 767px) {
-    .profile__wrapper {
-        max-width: 100%;
-        flex-direction: column;
+@media screen and (max-width: 321px) {
+    .footer__copyrights {
+        font-size: 14px;
+        line-height: 17px;
     }
 }

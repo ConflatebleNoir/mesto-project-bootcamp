@@ -1,13 +1,16 @@
 .profile__nickname {
     max-width: 336px;
-    font: normal 18px/21px 'Inter', sans-serif;
+    font: normal 18px/21px 'Inter', 'Arial', sans-serif;
     color: #fff;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 767px) {
     .profile__nickname {
-        max-width: 100%;
+        max-width: 282px;
         margin-top: 14px;
         font-size: 14px;
         line-height: 16px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -17,62 +17,58 @@
         <main class="content">
             <article class="profile">
                 <div class="profile__wrapper">
-                    <img src="images/Avatar.svg" alt="Изображение пользователя" class="avatar">
+                    <img src="images/Avatar.svg" alt="Изображение пользователя" class="profile__avatar">
                     <div class="profile__info">
                         <div class="profile__text">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <button class="profile__edit-button">
-                                <img src="images/edit.svg" alt="Изменить профиль">
-                            </button>
+                            <button class="profile__edit-button" type="button" aria-label="edit-popup"></button>
                         </div>
                         <p class="profile__nickname">Исследователь океана</p>
                     </div>
                 </div>
-                <button class="profile__add-button">
-                    <div class="profile__target"></div>
-                </button>
+                <button class="profile__add-button" type="button" aria-label="add-popup"></button>
             </article>
             <section class="cards">
                 <div class="card">
                     <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Карачаевск</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
                 <div class="card">
                     <img src="images/elbrus.jpg" alt="Эльбрус" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Гора Эльбрус</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
                 <div class="card">
                     <img src="images/dombay.jpg" alt="Домбай" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Домбай</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
                 <div class="card">
                     <img src="images/elbrus.jpg" alt="Эльбрус" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Гора Эльбрус</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
                 <div class="card">
                     <img src="images/dombay.jpg" alt="Домбай" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Домбай</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
                 <div class="card">
                     <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__mask" />
                     <div class="card__description">
                         <h2 class="card__title">Карачаево-Черкесия</h2>
-                        <div class="card__like card__like_active"></div>
+                        <div class="card__like"></div>
                     </div>
                 </div>
             </section>
@@ -80,14 +76,16 @@
         <footer class="footer">
             <p class="footer__copyrights">&copy; 2022 Mesto Russia</p>
         </footer>
-        <div class="overlay overlay__hidden">
+        <div class="overlay_hidden">
             <div class="edit-form">
-                <div class="edit-form__close"></div>
-                <form action="get" class="edit-form__wrapper">
+                <button class="edit-form__close" type="button" aria-label="close"></button>
+                <form action="get" class="edit-form__wrapper" name="edit-form">
                     <h2 class="edit-form__title">Редактировать профиль</h2>
-                    <input type="text" class="edit-form__name" placeholder="Жак-Ив Кусто">
-                    <input type="text" class="edit-form__nickname" placeholder="Исследователь океана">
-                    <input type="submit" class="edit-form__submit" placeholder="Сохранить">
+                    <input type="text" class="edit-form__element" name="edit__name" placeholder="Имя"
+                        id="edit-form__name">
+                    <input type="text" class="edit-form__element" name="edit__nickname" id="edit-form__nickname"
+                        placeholder="О себе">
+                    <button class="edit-form__submit" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>

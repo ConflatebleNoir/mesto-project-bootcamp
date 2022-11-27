@@ -11,6 +11,7 @@
     padding: 14px 0;
     transition: .5s ease;
     cursor: pointer;
+    border: 0;
 }
 
 .edit-form__submit:hover {

@@ -5,7 +5,7 @@
     display: flex;
     margin: 0 auto;
     padding: 45px 0 41px 0;
-    border-bottom: 1px solid #5454544d;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media screen and (max-width: 1279px) {
@@ -17,5 +17,6 @@
 @media screen and (max-width: 767px) {
     .header {
         max-width: 100%;
+        padding: 28px 0 31px 0;
     }
 }

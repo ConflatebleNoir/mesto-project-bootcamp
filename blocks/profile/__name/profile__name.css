@@ -1,8 +1,11 @@
 .profile__name {
     max-width: 294px;
-    font: 500 42px/48px 'Inter', sans-serif;
+    font: 500 42px/48px 'Inter', 'Arial', sans-serif;
     color: #fff;
     margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 767px) {
