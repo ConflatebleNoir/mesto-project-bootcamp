@@ -5,6 +5,8 @@
     background-image: url(../../../images/like.svg);
     transition: .5s ease;
     cursor: pointer;
+    border: 0;
+    background-color: transparent;
 }
 
 .card__like:hover {
