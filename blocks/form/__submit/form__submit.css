@@ -1,4 +1,4 @@
-.edit-form__submit {
+.form__submit {
     width: 100%;
     display: flex;
     align-items: center;
@@ -14,12 +14,12 @@
     border: 0;
 }
 
-.edit-form__submit:hover {
+.form__submit:hover {
     opacity: .8;
 }
 
 @media screen and (max-width: 767px) {
-    .edit-form__submit {
+    .form__submit {
         font-size: 14px;
         line-height: 17px;
     }

@@ -1,11 +1,11 @@
-.edit-form__title {
+.form__title {
     font: 900 24px/29px 'Inter', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 @media screen and (max-width: 767px) {
-    .edit-form__title {
+    .form__title {
         font-size: 18px;
         line-height: 21px;
     }

@@ -1,4 +1,4 @@
-.edit-form__wrapper {
+.form {
     max-width: 430px;
     width: 100%;
     background-color: #fff;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 767px) {
-    .edit-form__wrapper {
+    .form {
         max-width: 282px;
         padding: 25px 22px;
     }
