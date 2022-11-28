@@ -22,12 +22,12 @@ if (editPopupClose) {
 };
 
 // Находим форму в DOM
-const formElement = document.querySelector('#edit-form');
+const editFormElement = document.querySelector('#edit-form');
 //достаем тексовые элементы профиля и элементы формы
 const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__nickname');
-const nameInput = formElement.querySelector('#edit-form__name');
-const jobInput = formElement.querySelector('#edit-form__nickname');
+const nameInput = editFormElement.querySelector('#edit-form__name');
+const jobInput = editFormElement.querySelector('#edit-form__nickname');
 
 //копируем содержимое текстовых элементов профиля в поля формы
 nameInput.value = profileName.textContent;
@@ -35,18 +35,18 @@ jobInput.value = profileBio.textContent;
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function handleFormSubmit(evt) {
+function editFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     profileName.textContent = nameInput.value;
     profileBio.textContent = jobInput.value;
-    popupProfile.classList.add('overlay_hidden');
+    popupProfileOverlay.classList.add('overlay_hidden');
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+editFormElement.addEventListener('submit', editFormSubmit);
 
-// Создадим массив объектов данных статических карточек
+// 2. Создадим массив объектов данных статических карточек
 const initialCards = [
     {
         name: 'Архыз',
@@ -74,40 +74,35 @@ const initialCards = [
     }
 ];
 
-function addNewCard(nameValue, urlValue) {
-    const cardContainer = document.createElement('div');
-    cardContainer.classList.add('card');
+const cardsContainer = document.querySelector('.cards');
+const cardTemplate = document.querySelector('.card-template').content;
 
-    const cardImage = document.createElement('img');
-    cardImage.classList.add('card__mask');
-    cardImage.setAttribute(src, urlValue);
+initialCards.forEach(function (element) {
+    const cardElement = cardTemplate.cloneNode(true);
 
-    const cardDescription = document.createElement('div');
-    cardContainer.classList.add('card__description');
+    cardElement.querySelector('.card__mask').setAttribute("src", `${element.link}`);
+    cardElement.querySelector('.card__title').textContent = element.name;
+    cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
+        evt.target.classList.toggle('card__like_active');
+    });
 
-    const cardTitle = document.createElement('h2');
-    cardTitle.classList.add('card__title');
-    cardTitle.textContent = nameValue;
+    cardsContainer.prepend(cardElement);
+});
 
-    const likeButton = document.createElement('button');
-    likeButton.classList.add('card__like');
-    likeButton.setAttribute(type, button);
-}
+
+// function addNewCard(nameValue, urlValue) {
+//     const cardTemplate = document.querySelector('#card-template').content;
+//     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+//     cardElement.querySelector('.card__mask').setAttribute("src", `${urlValue.value}`);
+//     cardElement.querySelector('.card__title').textContent = nameValue.value;
+//     cardsContainer.prepend(cardElement);
+// }
 
 const addButton = document.querySelector('.profile__add-button');
 const popupAddOverlay = document.querySelector('#add-overlay');
 const addForm = popupAddOverlay.querySelector('.form');
 const addPopupClose = popupAddOverlay.querySelector('.form__close');
-
-// addButton.addEventListener('click', function () {
-//     const addForm = document.querySelector('#add-form');
-//     const cardName = editForm.querySelector('.form__title');
-//     const cardUrl = editForm.querySelector('#add__image-url');
-
-//     addNewCard(cardName.value, cardUrl.value);
-//     cardName.value = '';
-//     cardUrl.value = '';
-// });
 
 if (addButton) {
     addButton.addEventListener('click', () => {
@@ -123,10 +118,10 @@ if (addPopupClose) {
     })
 }
 
-function handleFormSubmit(evt) {
+function addFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    const cardName = addForm.querySelector('#add__image-name');
-    const cardUrl = addForm.querySelector('#add__image-url');
 
-    popupProfile.classList.add('overlay_hidden');
+    popupAddOverlay.classList.add('overlay_hidden');
 }
+
+addForm.addEventListener('submit', addFormSubmit);

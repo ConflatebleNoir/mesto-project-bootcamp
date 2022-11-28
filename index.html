@@ -29,48 +29,7 @@
                 <button class="profile__add-button" type="button" aria-label="add-popup"></button>
             </article>
             <section class="cards">
-                <div class="card">
-                    <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Карачаевск</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/elbrus.jpg" alt="Эльбрус" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Гора Эльбрус</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/dombay.jpg" alt="Домбай" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Домбай</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/elbrus.jpg" alt="Эльбрус" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Гора Эльбрус</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/dombay.jpg" alt="Домбай" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Домбай</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__mask" />
-                    <div class="card__description">
-                        <h2 class="card__title">Карачаево-Черкесия</h2>
-                        <div class="card__like"></div>
-                    </div>
-                </div>
+
             </section>
         </main>
         <footer class="footer">
@@ -102,6 +61,18 @@
             </div>
         </div>
     </div>
+
+    <template class="card-template">
+        <div class="card">
+            <img alt="" class="card__mask" />
+            <button class="card__trash" type="button"></button>
+            <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__like" type="button"></button>
+            </div>
+        </div>
+    </template>
+
     <script src="app/app.js"></script>
 </body>
 

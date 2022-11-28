@@ -1,7 +1,7 @@
 .overlay {
     opacity: 1;
     visibility: visible;
-    display: block;
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
