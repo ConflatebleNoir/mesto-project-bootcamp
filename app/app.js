@@ -33,17 +33,13 @@ const jobInput = editFormElement.querySelector('#edit-form__nickname');
 nameInput.value = profileName.textContent;
 jobInput.value = profileBio.textContent;
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 function editFormSubmit(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileBio.textContent = jobInput.value;
     popupProfileOverlay.classList.add('overlay_hidden');
 }
-
 // Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
 editFormElement.addEventListener('submit', editFormSubmit);
 
 // 2. Создадим массив объектов данных статических карточек
@@ -77,6 +73,7 @@ const initialCards = [
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.card-template').content;
 
+// Рендерим карточки из массива
 initialCards.forEach(function (element) {
     const cardElement = cardTemplate.cloneNode(true);
 
@@ -85,19 +82,14 @@ initialCards.forEach(function (element) {
     cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
         evt.target.classList.toggle('card__like_active');
     });
+    // добавим удаление по клику на кнопку урны
+    cardElement.querySelector('.card__trash').addEventListener('click', () => {
+        const card = document.querySelector('.card');
+        card.remove();
+    });
 
-    cardsContainer.prepend(cardElement);
+    cardsContainer.append(cardElement);
 });
-
-
-// function addNewCard(nameValue, urlValue) {
-//     const cardTemplate = document.querySelector('#card-template').content;
-//     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-
-//     cardElement.querySelector('.card__mask').setAttribute("src", `${urlValue.value}`);
-//     cardElement.querySelector('.card__title').textContent = nameValue.value;
-//     cardsContainer.prepend(cardElement);
-// }
 
 const addButton = document.querySelector('.profile__add-button');
 const popupAddOverlay = document.querySelector('#add-overlay');
@@ -115,13 +107,30 @@ if (addPopupClose) {
     addPopupClose.addEventListener('click', () => {
         popupAddOverlay.classList.remove('overlay');
         popupAddOverlay.classList.add('overlay_hidden');
-    })
-}
+    });
+};
 
 function addFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    const addTitileElement = addForm.querySelector('#add__image-name');
+    const addUrlElement = addForm.querySelector('#add__image-url');
+    const cardElement = cardTemplate.cloneNode(true);
+
+    cardElement.querySelector('.card__mask').setAttribute("src", `${addUrlElement.value}`);
+    cardElement.querySelector('.card__title').textContent = addTitileElement.value;
+    cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
+        evt.target.classList.toggle('card__like_active');
+    });
+    // добавим удаление по клику на кнопку урны
+    cardElement.querySelector('.card__trash').addEventListener('click', () => {
+        const card = document.querySelector('.card');
+        card.remove();
+    });
 
     popupAddOverlay.classList.add('overlay_hidden');
-}
+    addTitileElement.value = '';
+    addUrlElement.value = '';
+    cardsContainer.prepend(cardElement);
+};
 
 addForm.addEventListener('submit', addFormSubmit);
