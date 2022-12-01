@@ -36,8 +36,8 @@
             <p class="footer__copyrights">&copy; 2022 Mesto Russia</p>
         </footer>
         <div class="overlay_hidden" id="profile-overlay">
-            <div class="form-wrapper">
-                <button class="form__close" type="button" aria-label="close" id="edit-form__close"></button>
+            <div class="popup-wrapper">
+                <button class="popup-wrapper__close" type="button" aria-label="close" id="edit-form__close"></button>
                 <form action="get" class="form" name="edit-form" id="edit-form">
                     <h2 class="form__title">Редактировать профиль</h2>
                     <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="edit-form__name">
@@ -48,8 +48,8 @@
             </div>
         </div>
         <div class="overlay_hidden" id="add-overlay">
-            <div class="form-wrapper">
-                <button class="form__close" type="button" aria-label="close"></button>
+            <div class="popup-wrapper">
+                <button class="popup-wrapper__close" type="button" aria-label="close"></button>
                 <form action="get" class="form" name="add-form" id="add-form">
                     <h2 class="form__title">Новое место</h2>
                     <input type="text" class="form__element" name="add__image-name" placeholder="Название"
@@ -58,6 +58,15 @@
                         placeholder="Ссылка на картинку">
                     <button class="form__submit" type="submit">Создать</button>
                 </form>
+            </div>
+        </div>
+        <div class="overlay" id="image-overlay">
+            <div class="popup-wrapper popup-wrapper_image">
+                <button class="popup-wrapper__close" type="button" aria-label="close"></button>
+                <div class="popup">
+                    <img src="" alt="" class="popup__image">
+                    <h3 class="popup__title"></h3>
+                </div>
             </div>
         </div>
     </div>

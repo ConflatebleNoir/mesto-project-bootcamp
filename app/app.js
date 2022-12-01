@@ -4,7 +4,7 @@
 //вытягиваем из документа элементы для отображения edit-popup
 const editProfileButton = document.querySelector('.profile__edit-button');
 const popupProfileOverlay = document.querySelector('#profile-overlay');
-const editPopupClose = popupProfileOverlay.querySelector('.form__close');
+const editPopupClose = popupProfileOverlay.querySelector('.popup-wrapper__close');
 
 //подключаем слушатель на клик
 if (editProfileButton) {
@@ -87,6 +87,9 @@ initialCards.forEach(function (element) {
         const card = document.querySelector('.card');
         card.remove();
     });
+    cardElement.querySelector('.card__mask').addEventListener('click', (evt) => {
+        evt.target.classList
+    })
 
     cardsContainer.append(cardElement);
 });
@@ -94,7 +97,7 @@ initialCards.forEach(function (element) {
 const addButton = document.querySelector('.profile__add-button');
 const popupAddOverlay = document.querySelector('#add-overlay');
 const addForm = popupAddOverlay.querySelector('.form');
-const addPopupClose = popupAddOverlay.querySelector('.form__close');
+const addPopupClose = popupAddOverlay.querySelector('.popup-wrapper__close');
 
 if (addButton) {
     addButton.addEventListener('click', () => {
@@ -134,3 +137,8 @@ function addFormSubmit(evt) {
 };
 
 addForm.addEventListener('submit', addFormSubmit);
+
+const imagePopupWrapper = document.querySelector('#image-overlay');
+const imagePopupClose = imagePopupWrapper.querySelector('.popup-wrapper__close');
+const imagePopupItem = imagePopupWrapper.querySelector('.popup__image');
+const imagePopupTitle = imagePopupWrapper.querySelector('.popup__title');

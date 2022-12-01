@@ -1,32 +1,33 @@
-.form__close {
+.popup-wrapper__close {
     min-width: 32px;
     min-height: 32px;
     cursor: pointer;
     transition: .5s ease;
-    margin: 0 0 8px auto;
     background-image: url(../../../images/closeIcon.svg);
     background-repeat: no-repeat;
     object-fit: cover;
     background-size: contain;
     background-color: transparent;
     border: 0;
+    align-self: flex-start;
+    margin: -40px 0 0 0;
 }
 
-.form__close:hover {
+.popup-wrapper__close:hover {
     opacity: .6;
 }
 
 @media screen and (max-width: 767px) {
-    .form__close {
+    .popup-wrapper__close {
         min-width: 24px;
         min-height: 24px;
     }
 }
 
 @media screen and (max-width: 321px) {
-    .form__close {
+    .popup-wrapper__close {
         min-width: 20px;
         min-height: 20px;
-        margin: 0 0 16px 0;
+        margin: 0 0 16px auto;
     }
 }

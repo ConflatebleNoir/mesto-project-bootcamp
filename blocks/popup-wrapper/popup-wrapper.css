@@ -1,24 +1,25 @@
-.form-wrapper {
-    max-width: 500px;
+.popup-wrapper {
+    max-width: 75vw;
     width: 100%;
+    max-height: 75vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
-    margin: auto;
-    min-height: 100vh;
+    margin: 0 auto;
     z-index: 101;
+    column-gap: 8px;
 }
 
 @media screen and (max-width: 767px) {
-    .form-wrapper {
+    .popup-wrapper {
         max-width: 330px;
     }
 }
 
 @media screen and (max-width: 321px) {
-    .form-wrapper {
+    .popup-wrapper {
         max-width: 88%;
-        align-items: flex-end;
+        flex-direction: column;
     }
 }

@@ -1,0 +1,8 @@
+.popup {
+    max-width: 75vw;
+    max-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    row-gap: 10px;
+}

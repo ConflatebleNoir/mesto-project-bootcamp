@@ -32,9 +32,14 @@
 
 @import url(../blocks/overlay/overlay.css);
 @import url(../blocks/overlay/_hidden/overlay_hidden.css);
-@import url(../blocks/form-wrapper/form-wrapper.css);
-@import url(../blocks/form/__close/form__close.css);
+@import url(../blocks/popup-wrapper/popup-wrapper.css);
+@import url(../blocks/popup-wrapper/__close/popup-wrapper__close.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__element/form__element.css);
 @import url(../blocks/form/__submit/form__submit.css);
+
+@import url(../blocks/popup-wrapper/_image/popup-wrapper__image.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup/__title/popup__title.css);
