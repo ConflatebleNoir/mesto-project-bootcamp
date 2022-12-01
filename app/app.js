@@ -75,15 +75,20 @@ const cardTemplate = document.querySelector('.card-template').content;
 
 // Рендерим карточки из массива
 initialCards.forEach(function (element) {
+    // const imagePopup = document.querySelector('#image-overlay');
+    // const imageTitle = imagePopup.querySelector('.popup__title');
+    // const popupImage = imagePopup.querySelector('.popup__image');
     const cardElement = cardTemplate.cloneNode(true);
 
     cardElement.querySelector('.card__mask').setAttribute("src", `${element.link}`);
     cardElement.querySelector('.card__title').textContent = element.name;
+
     // лайк
     cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
         evt.target.classList.toggle('card__like_active');
     });
-    // добавим удаление по клику на кнопку урны!!!!!!!!!!!!!!!!
+
+    // добавим удаление родительского элемента по клику на кнопку дочернего элемента
     cardElement.querySelectorAll('.card__trash').forEach((item) => {
         item.addEventListener('click', () => {
             item.parentNode.parentNode.removeChild(item.parentNode);
@@ -116,10 +121,16 @@ function addFormSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     const addTitileElement = addForm.querySelector('#add__image-name');
     const addUrlElement = addForm.querySelector('#add__image-url');
+
+    const imagePopup = document.querySelector('#image-overlay');
+    const imageTitle = imagePopup.querySelector('.popup__title');
+    const popupImage = imagePopup.querySelector('.popup__image');
+
     const cardElement = cardTemplate.cloneNode(true);
 
     cardElement.querySelector('.card__mask').setAttribute("src", `${addUrlElement.value}`);
     cardElement.querySelector('.card__title').textContent = addTitileElement.value;
+    // лайк
     cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
         evt.target.classList.toggle('card__like_active');
     });
@@ -137,3 +148,18 @@ function addFormSubmit(evt) {
 };
 
 addForm.addEventListener('submit', addFormSubmit);
+
+
+// // открываем попап кликом по картинке
+// cardElement.querySelector('.card__mask').addEventListener('click', () => {
+//     // imageTitle.textContent = cardElement.querySelector('.card__title').textContent;
+//     // popupImage.setAttribute('src', `${cardElement.querySelector('.card__mask').getAttribute(src)}`);
+//     imagePopup.classList.add('overlay');
+//     imagePopup.classList.remove('overlay_hidden');
+// });
+
+// // закрываем попап кликом по крестику
+// imagePopup.querySelector('.popup-wrapper__close').addEventListener('click', () => {
+//     imagePopup.classList.remove('overlay');
+//     imagePopup.classList.add('overlay_hidden');
+// });
