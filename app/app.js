@@ -79,17 +79,16 @@ initialCards.forEach(function (element) {
 
     cardElement.querySelector('.card__mask').setAttribute("src", `${element.link}`);
     cardElement.querySelector('.card__title').textContent = element.name;
+    // лайк
     cardElement.querySelector('.card__like').addEventListener('click', (evt) => {
         evt.target.classList.toggle('card__like_active');
     });
-    // добавим удаление по клику на кнопку урны
-    cardElement.querySelector('.card__trash').addEventListener('click', () => {
-        const card = document.querySelector('.card');
-        card.remove();
+    // добавим удаление по клику на кнопку урны!!!!!!!!!!!!!!!!
+    cardElement.querySelectorAll('.card__trash').forEach((item) => {
+        item.addEventListener('click', () => {
+            item.parentNode.parentNode.removeChild(item.parentNode);
+        });
     });
-    cardElement.querySelector('.card__mask').addEventListener('click', (evt) => {
-        evt.target.classList
-    })
 
     cardsContainer.append(cardElement);
 });
@@ -125,9 +124,10 @@ function addFormSubmit(evt) {
         evt.target.classList.toggle('card__like_active');
     });
     // добавим удаление по клику на кнопку урны
-    cardElement.querySelector('.card__trash').addEventListener('click', () => {
-        const card = document.querySelector('.card');
-        card.remove();
+    cardElement.querySelectorAll('.card__trash').forEach((item) => {
+        item.addEventListener('click', () => {
+            item.parentNode.parentNode.removeChild(item.parentNode);
+        });
     });
 
     popupAddOverlay.classList.add('overlay_hidden');
@@ -137,8 +137,3 @@ function addFormSubmit(evt) {
 };
 
 addForm.addEventListener('submit', addFormSubmit);
-
-const imagePopupWrapper = document.querySelector('#image-overlay');
-const imagePopupClose = imagePopupWrapper.querySelector('.popup-wrapper__close');
-const imagePopupItem = imagePopupWrapper.querySelector('.popup__image');
-const imagePopupTitle = imagePopupWrapper.querySelector('.popup__title');
