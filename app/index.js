@@ -65,8 +65,30 @@ function addCard(imageValue, titleValue) {
         } else if (evt.target.classList.contains('card__trash')) {
             evt.currentTarget.remove();
         } else if (evt.target.classList.contains('card__mask')) {
-            console.log(evt.target.getAttribute("src"));
-            imagePopupToggle(evt.target, cardElement.classList.contains('card__title'));
+            function imagePopupToggle(item, title) {
+                const imagePopup = document.querySelector('#image-overlay');
+                const imageElement = imagePopup.querySelector('.popup__image');
+                const imageTitle = imagePopup.querySelector('.popup__title');
+                const imageClose = imagePopup.querySelector('.popup-wrapper__close');
+                //открываем
+                if (item) {
+                    item.addEventListener('click', () => {
+                        imagePopup.classList.add('overlay');
+                        imagePopup.classList.remove('overlay_hidden');
+                        imageElement.setAttribute('src', `${item.getAttribute('src')}`);
+                        imageElement.setAttribute('alt', `${item.getAttribute('alt')}`);
+                        imageTitle.textContent = title.textContent;
+                    });
+                }
+                //закрываем
+                if (imageClose) {
+                    imageClose.addEventListener('click', () => {
+                        imagePopup.classList.add('overlay_hidden');
+                    });
+                };
+            };
+
+            imagePopupToggle(evt.target, cardElement.querySelector('.card__title'));
         };
     });
 
