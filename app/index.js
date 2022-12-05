@@ -19,10 +19,6 @@ const addButton = document.querySelector('.profile__add-button');
 const editClose = editFormElement.querySelector('.popup-wrapper__close');
 const addClose = addFormElement.querySelector('.popup-wrapper__close');
 
-//Перенесем данные из поля профиля в форму
-nameInput.value = nameProfile.textContent;
-jobInput.value = jobProfile.textContent;
-
 //Добавим массив свойств карточек
 const initialCards = [
     {
@@ -97,22 +93,14 @@ function addCard(imageValue, titleValue) {
 };
 
 //Функция открытия попапов
-function popupOpener(item, form) {
-    if (item) {
-        item.addEventListener('click', () => {
-            form.classList.add('overlay');
-            form.classList.remove('overlay_hidden');
-        });
-    };
+function openPopup(form) {
+    form.classList.add('overlay');
+    form.classList.remove('overlay_hidden');
 };
 
 //Функция сокрытия попапов
-function popupClose(item, form) {
-    if (item) {
-        item.addEventListener('click', () => {
-            form.classList.add('overlay_hidden');
-        });
-    };
+function closePopup(form) {
+    form.classList.add('overlay_hidden');
 }
 
 //Функция добавления карточки
@@ -120,8 +108,8 @@ function addFormSubmit(evt) {
     evt.preventDefault();
 
     addCard(urlInput.value, titleInput.value);
-    urlInput.value = '';
-    titleInput.value = '';
+    evt.target.reset();
+    closePopup(addFormElement);
 };
 
 //Функция изменения данных профиля
@@ -130,6 +118,7 @@ function editFormSubmit(evt) {
 
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
+    closePopup(editFormElement);
 };
 
 // Рендер карточек из массива
@@ -137,11 +126,24 @@ initialCards.forEach((element) => {
     addCard(element.link, element.name);
 });
 
-popupOpener(editButton, editFormElement);
-popupOpener(addButton, addFormElement);
+editButton.addEventListener('click', () => {
+    openPopup(editFormElement);
+    //Перенесем данные из поля профиля в форму
+    nameInput.value = nameProfile.textContent;
+    jobInput.value = jobProfile.textContent;
+});
 
-popupClose(editClose, editFormElement);
-popupClose(addClose, addFormElement);
+editClose.addEventListener('click', () => {
+    closePopup(editFormElement);
+});
+
+addButton.addEventListener('click', () => {
+    openPopup(addFormElement);
+});
+
+addClose.addEventListener('click', () => {
+    closePopup(addFormElement);
+});
 
 editFormElement.addEventListener('submit', editFormSubmit);
 addFormElement.addEventListener('submit', addFormSubmit);
