@@ -56,8 +56,9 @@ function createCard(imageValue, titleValue) {
     const cardTemplate = document.querySelector('.card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-    cardElement.querySelector('.card__mask').setAttribute("src", `${imageValue}`);
-    cardElement.querySelector('.card__mask').setAttribute("alt", `${titleValue}`);
+    const cardMask = cardElement.querySelector('.card__mask');
+    cardMask.setAttribute("src", `${imageValue}`);
+    cardMask.setAttribute("alt", `${titleValue}`);
     cardElement.querySelector('.card__title').textContent = titleValue;
 
     cardElement.addEventListener('click', (evt) => {
