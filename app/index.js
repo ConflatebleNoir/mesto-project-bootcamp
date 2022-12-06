@@ -28,6 +28,8 @@ const editForm = document.forms.editForm;
 const editFormSubmitButton = editForm.querySelector('.form__submit');
 const addForm = document.forms.addForm;
 const addFormSubmitButton = addForm.querySelector('.form__submit');
+//Добавим элемент ошибки
+const formError = editForm.querySelector('.form__element-error');
 
 //Добавим массив свойств карточек
 const initialCards = [
@@ -125,6 +127,23 @@ function imagePopupToggle(item, title) {
     });
 };
 
+//Отобразим ошбику валидации формы 
+function showInputError(input) {
+    input.classList.add('form__input_error');
+};
+//скроем
+function hideInputError(input) {
+    input.classList.remove('form__input_error');
+};
+//функция проверки данных + вызов ошибки 
+function checkValid() {
+    if (editForm.validity.valid) {
+        hideInputError(nameInput);
+    } else {
+        showInputError(nameInput);
+    }
+};
+
 //Функция изменения данных профиля
 function editFormSubmit(evt) {
     evt.preventDefault();
@@ -175,14 +194,16 @@ imageClose.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
-editForm.addEventListener('input', () => {
+editForm.addEventListener('input', (evt) => {
     const isValidEdit = nameInput.value.length > 0 && jobInput.value.length > 0;
     setSubmitButtonState(isValidEdit, editFormSubmitButton);
+
 });
 
-addForm.addEventListener('input', () => {
+addForm.addEventListener('input', (evt) => {
     const isValidAdd = titleInput.value.length > 0 && urlInput.value.length > 0;
     setSubmitButtonState(isValidAdd, addFormSubmitButton);
+
 })
 
 editFormElement.addEventListener('submit', editFormSubmit);
