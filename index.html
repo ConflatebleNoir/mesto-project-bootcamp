@@ -40,9 +40,10 @@
                 <button class="popup-wrapper__close" type="button" aria-label="close" id="edit-form__close"></button>
                 <form action="get" class="form" name="editForm" id="edit-form">
                     <h2 class="form__title">Редактировать профиль</h2>
-                    <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="edit-form__name">
+                    <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="edit-form__name"
+                        minlength="2" maxlength="40">
                     <input type="text" class="form__element" name="edit__nickname" id="edit-form__nickname"
-                        placeholder="О себе">
+                        placeholder="О себе" minlength="2" maxlength="200">
                     <button class="form__submit form__submit_disabled" type="submit" disabled>Сохранить</button>
                 </form>
             </div>
