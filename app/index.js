@@ -23,6 +23,11 @@ const imagePopup = document.querySelector('#image-overlay');
 const imageElement = imagePopup.querySelector('.popup__image');
 const imageTitle = imagePopup.querySelector('.popup__title');
 const imageClose = imagePopup.querySelector('.popup-wrapper__close');
+//Добавим формы и кнопки submit
+const editForm = document.forms.editForm;
+const editFormSubmitButton = editForm.querySelector('.form__submit');
+const addForm = document.forms.addForm;
+const addFormSubmitButton = addForm.querySelector('.form__submit');
 
 //Добавим массив свойств карточек
 const initialCards = [
@@ -129,6 +134,16 @@ function editFormSubmit(evt) {
     closePopup(editFormElement);
 };
 
+function setSubmitButtonState(isFormValid, button) {
+    if (isFormValid) {
+        button.removeAttribute('disabled');
+        button.classList.remove('form__submit_disabled');
+    } else {
+        button.setAttribute('disabled', true);
+        button.classList.add('form__submit_disabled');
+    };
+};
+
 // Рендер карточек из массива
 initialCards.forEach((element) => {
     const cardElement = createCard(element.link, element.name);
@@ -140,6 +155,7 @@ editButton.addEventListener('click', () => {
     //Перенесем данные из поля профиля в форму
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
+    setSubmitButtonState(true, editFormSubmitButton);
 });
 
 editClose.addEventListener('click', () => {
@@ -148,6 +164,7 @@ editClose.addEventListener('click', () => {
 
 addButton.addEventListener('click', () => {
     openPopup(addFormElement);
+    setSubmitButtonState(false, addFormSubmitButton);
 });
 
 addClose.addEventListener('click', () => {
@@ -157,6 +174,16 @@ addClose.addEventListener('click', () => {
 imageClose.addEventListener('click', () => {
     closePopup(imagePopup);
 });
+
+editForm.addEventListener('input', () => {
+    const isValidEdit = nameInput.value.length > 0 && jobInput.value.length > 0;
+    setSubmitButtonState(isValidEdit, editFormSubmitButton);
+});
+
+addForm.addEventListener('input', () => {
+    const isValidAdd = titleInput.value.length > 0 && urlInput.value.length > 0;
+    setSubmitButtonState(isValidAdd, addFormSubmitButton);
+})
 
 editFormElement.addEventListener('submit', editFormSubmit);
 addFormElement.addEventListener('submit', addFormSubmit);
