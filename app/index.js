@@ -1,8 +1,8 @@
 'use strict';
 // подтягиваем элементы формы edit
 const editFormElement = document.querySelector('#profile-overlay');
-const nameInput = editFormElement.querySelector('#edit-form__name');
-const jobInput = editFormElement.querySelector('#edit-form__nickname');
+const nameInput = editFormElement.querySelector('#form__name');
+const jobInput = editFormElement.querySelector('#form__nickname');
 // элементы блока profile
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__nickname');
@@ -28,8 +28,9 @@ const editForm = document.forms.editForm;
 const editFormSubmitButton = editForm.querySelector('.form__submit');
 const addForm = document.forms.addForm;
 const addFormSubmitButton = addForm.querySelector('.form__submit');
-//Добавим элемент ошибки
-const formError = editForm.querySelector('.form__element-error');
+//Элементы полей
+const editFormInput = editForm.querySelector('.form__element');
+const addFormInput = addForm.querySelector('.form__element')
 
 //Добавим массив свойств карточек
 const initialCards = [
@@ -128,20 +129,48 @@ function imagePopupToggle(item, title) {
 };
 
 //Отобразим ошбику валидации формы 
-function showInputError(input) {
-    input.classList.add('form__input_error');
+function showInputError(formElement, inputElement, errorMessage) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('form__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('.form__input-error_active');
 };
+
 //скроем
-function hideInputError(input) {
-    input.classList.remove('form__input_error');
+function hideInputError(formElement, inputElement) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('form__input_type_error');
+    errorElement.classList.remove('.form__input-error_active');
+    errorElement.textContent = '';
 };
+
 //функция проверки данных + вызов ошибки 
-function checkValid() {
-    if (editForm.validity.valid) {
-        hideInputError(nameInput);
+function checkValidity(formElement, inputElement) {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
-        showInputError(nameInput);
-    }
+        hideInputError(formElement, inputElement);
+    };
+};
+
+// Функция для установки слушателей на поля ввода
+function setEventListeners(formElement) {
+    const inputList = Array.from(formElement.querySelectorAll('.form__element'));
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', () => {
+            checkValidity(formElement, inputElement);
+        });
+    });
+};
+
+function enableValidation() {
+    const formList = Array.from(document.querySelectorAll('.form'));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement);
+    });
 };
 
 //Функция изменения данных профиля
@@ -186,7 +215,7 @@ addButton.addEventListener('click', () => {
     setSubmitButtonState(false, addFormSubmitButton);
 });
 
-addClose.addEventListener('click', () => {
+addClose.addEventListener('click', (evt) => {
     closePopup(addFormElement);
 });
 
@@ -195,16 +224,16 @@ imageClose.addEventListener('click', () => {
 });
 
 editForm.addEventListener('input', (evt) => {
-    const isValidEdit = nameInput.value.length > 0 && jobInput.value.length > 0;
+    const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
     setSubmitButtonState(isValidEdit, editFormSubmitButton);
-
 });
 
 addForm.addEventListener('input', (evt) => {
-    const isValidAdd = titleInput.value.length > 0 && urlInput.value.length > 0;
+    const isValidAdd = titleInput.value.length >= 2;
     setSubmitButtonState(isValidAdd, addFormSubmitButton);
-
 })
 
-editFormElement.addEventListener('submit', editFormSubmit);
-addFormElement.addEventListener('submit', addFormSubmit);
+editForm.addEventListener('submit', editFormSubmit);
+addForm.addEventListener('submit', addFormSubmit);
+
+enableValidation();

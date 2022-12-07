@@ -40,12 +40,12 @@
                 <button class="popup-wrapper__close" type="button" aria-label="close" id="edit-form__close"></button>
                 <form action="get" class="form" name="editForm" id="edit-form" novalidate>
                     <h2 class="form__title">Редактировать профиль</h2>
-                    <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="edit-form__name"
+                    <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="form__name"
                         minlength="2" maxlength="40" required>
-                    <span class="form__element-error"></span>
-                    <input type="text" class="form__element" name="edit__nickname" id="edit-form__nickname"
+                    <span class="form__name-error"></span>
+                    <input type="text" class="form__element" name="edit__nickname" id="form__nickname"
                         placeholder="О себе" minlength="2" maxlength="200" required>
-                    <span class="form__element-error"></span>
+                    <span class="form__nickname-error"></span>
                     <button class="form__submit form__submit_disabled" type="submit" disabled>Сохранить</button>
                 </form>
             </div>
@@ -57,8 +57,10 @@
                     <h2 class="form__title">Новое место</h2>
                     <input type="text" class="form__element" name="add__image-name" placeholder="Название"
                         id="add__image-name" minlength="2" maxlength="30" required>
+                    <span class="add__image-name-error"></span>
                     <input type="url" class="form__element" name="add__image-url" id="add__image-url"
                         placeholder="Ссылка на картинку" required>
+                    <span class="add__image-url-error"></span>
                     <button class="form__submit" type="submit">Создать</button>
                 </form>
             </div>
