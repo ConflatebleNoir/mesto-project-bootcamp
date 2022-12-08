@@ -98,14 +98,14 @@ function addCard(imageValue, titleValue) {
 };
 
 //Функция открытия попапов
-function openPopup(form) {
-    form.classList.add('overlay');
-    form.classList.remove('overlay_hidden');
+function openPopup(popup) {
+    popup.classList.add('overlay');
+    popup.classList.remove('overlay_hidden');
 };
 
-//Функция сокрытия попапов на клик по крестику
-function closePopup(form) {
-    form.classList.add('overlay_hidden');
+//Функция сокрытия попапов
+function closePopup(popup) {
+    popup.classList.add('overlay_hidden');
 };
 
 //Функция закрытия попапов кликом/тапом на оверлей
@@ -113,6 +113,13 @@ function closePopupByOverlayClick(evt, popup, form) {
     const abroad = evt.composedPath().includes(form);
     if (!abroad) {
         popup.classList.add('overlay_hidden');
+    };
+};
+
+//Функция сокрытия окна, нажатием на Escape
+function keyHandler(evt, popup) {
+    if (evt.key === 'Escape') {
+        closePopup(popup);
     };
 };
 
@@ -263,15 +270,22 @@ imagePopup.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, imagePopup, imageElement);
 });
 
-editForm.addEventListener('input', (evt) => {
+document.addEventListener('keydown', (evt) => {
+    keyHandler(evt, editFormElement);
+    keyHandler(evt, addFormElement);
+    keyHandler(evt, imagePopup);
+    console.log('боййй');
+});
+
+editForm.addEventListener('input', () => {
     const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
     setSubmitButtonState(isValidEdit, editFormSubmitButton);
 });
 
-addForm.addEventListener('input', (evt) => {
+addForm.addEventListener('input', () => {
     const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
     setSubmitButtonState(isValidAdd, addFormSubmitButton);
-})
+});
 
 editForm.addEventListener('submit', editFormSubmit);
 addForm.addEventListener('submit', addFormSubmit);

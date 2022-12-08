@@ -9,6 +9,7 @@
     flex-direction: column;
     padding: 34px 36px;
     box-sizing: border-box;
+    z-index: 101;
 }
 
 @media screen and (max-width: 767px) {
