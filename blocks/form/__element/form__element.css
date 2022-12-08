@@ -1,6 +1,6 @@
 .form__element {
     padding: 0 0 13px 0;
-    margin: 54px 0 0 0;
+    margin: 0;
     font: normal 14px/17px 'Inter', sans-serif;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -9,5 +9,4 @@
 
 .form__element:invalid {
     border-bottom: 1px solid #FF0000;
-    color: #FF0000;
 }

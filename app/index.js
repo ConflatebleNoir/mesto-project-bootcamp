@@ -156,9 +156,14 @@ function checkValidity(formElement, inputElement) {
 // Функция для установки слушателей на поля ввода
 function setEventListeners(formElement) {
     const inputList = Array.from(formElement.querySelectorAll('.form__element'));
+    const buttonElement = formElement.querySelector('.form__submit');
+
+    toggleButtonState(inputList, buttonElement);
+
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             checkValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement)
         });
     });
 };
@@ -169,8 +174,25 @@ function enableValidation() {
         formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
+
+        const fieldSet = Array.from(formElement.querySelectorAll('.'))
+
         setEventListeners(formElement);
     });
+};
+
+function hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    });
+};
+
+function toggleButtonState(inputList, buttonElement) {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add('form__submit_disabled');
+    } else {
+        buttonElement.classList.remove('form__submit_disabled');
+    };
 };
 
 //Функция изменения данных профиля
