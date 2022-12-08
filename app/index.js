@@ -103,9 +103,17 @@ function openPopup(form) {
     form.classList.remove('overlay_hidden');
 };
 
-//Функция сокрытия попапов
+//Функция сокрытия попапов на клик по крестику
 function closePopup(form) {
     form.classList.add('overlay_hidden');
+};
+
+//Функция закрытия попапов кликом/тапом на оверлей
+function closePopupByOverlayClick(evt, popup, form) {
+    const abroad = evt.composedPath().includes(form);
+    if (!abroad) {
+        popup.classList.add('overlay_hidden');
+    };
 };
 
 //Функция добавления карточки
@@ -175,8 +183,6 @@ function enableValidation() {
             evt.preventDefault();
         });
 
-        const fieldSet = Array.from(formElement.querySelectorAll('.'))
-
         setEventListeners(formElement);
     });
 };
@@ -228,7 +234,7 @@ editButton.addEventListener('click', () => {
     setSubmitButtonState(true, editFormSubmitButton);
 });
 
-editClose.addEventListener('click', () => {
+editClose.addEventListener('click', (evt) => {
     closePopup(editFormElement);
 });
 
@@ -245,13 +251,25 @@ imageClose.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
+editFormElement.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, editFormElement, editForm);
+});
+
+addFormElement.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, addFormElement, addForm);
+});
+
+imagePopup.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, imagePopup, imageElement);
+});
+
 editForm.addEventListener('input', (evt) => {
     const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
     setSubmitButtonState(isValidEdit, editFormSubmitButton);
 });
 
 addForm.addEventListener('input', (evt) => {
-    const isValidAdd = titleInput.value.length >= 2;
+    const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
     setSubmitButtonState(isValidAdd, addFormSubmitButton);
 })
 
