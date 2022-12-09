@@ -1,4 +1,4 @@
-# ПР6
+# ПР7
 
 ---
 
@@ -10,5 +10,6 @@
 2. Динамичный рендер элементов из массива;
 3. Действие по событию;
 4. event.target, event.currentTarget;
-5. Публикация проекта на GH Pages;
-6. https://conflateblenoir.github.io/mesto-project-bootcamp/
+5. Работа над валидацией форм;
+6. Хранение логики в модулях;
+7. Использование WebPack;
