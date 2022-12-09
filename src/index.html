@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <a href="#" class="logo"></a>
+        </header>
+        <main class="content">
+            <article class="profile">
+                <div class="profile__wrapper">
+                    <img src="images/Avatar.svg" alt="Изображение пользователя" class="profile__avatar">
+                    <div class="profile__info">
+                        <div class="profile__text">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button class="profile__edit-button" type="button" aria-label="edit-popup"></button>
+                        </div>
+                        <p class="profile__nickname">Исследователь океана</p>
+                    </div>
+                </div>
+                <button class="profile__add-button" type="button" aria-label="add-popup"></button>
+            </article>
+            <section class="cards">
+
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="footer__copyrights">&copy; 2022 Mesto Russia</p>
+        </footer>
+        <div class="overlay_hidden" id="profile-overlay">
+            <div class="popup-wrapper">
+                <button class="popup-wrapper__close" type="button" aria-label="close" id="edit-form__close"></button>
+                <form action="get" class="form" name="editForm" id="edit-form" novalidate>
+                    <h2 class="form__title">Редактировать профиль</h2>
+                    <label class="form__field">
+                        <input type="text" class="form__element" name="edit__name" placeholder="Имя" id="form__name"
+                            minlength="2" maxlength="40" required>
+                        <span class="form__name-error"></span>
+                    </label>
+                    <label class="form__field">
+                        <input type="text" class="form__element" name="edit__nickname" id="form__nickname"
+                            placeholder="О себе" minlength="2" maxlength="200" required>
+                        <span class="form__nickname-error"></span>
+                    </label>
+                    <button class="form__submit form__submit_disabled" type="submit" disabled>Сохранить</button>
+                </form>
+            </div>
+        </div>
+        <div class="overlay_hidden" id="add-overlay">
+            <div class="popup-wrapper">
+                <button class="popup-wrapper__close" type="button" aria-label="close"></button>
+                <form action="get" class="form" name="addForm" id="add-form" novalidate>
+                    <h2 class="form__title">Новое место</h2>
+                    <label class="form__field">
+                        <input type="text" class="form__element" name="add__image-name" placeholder="Название"
+                            id="add__image-name" minlength="2" maxlength="30" required>
+                        <span class="add__image-name-error"></span>
+                    </label>
+                    <label class="form__field">
+                        <input type="url" class="form__element" name="add__image-url" id="add__image-url"
+                            placeholder="Ссылка на картинку" required>
+                        <span class="add__image-url-error"></span>
+                    </label>
+                    <button class="form__submit" type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+        <div class="overlay_hidden" id="image-overlay">
+            <div class="popup-wrapper popup-wrapper_image">
+                <button class="popup-wrapper__close" type="button" aria-label="close"></button>
+                <div class="popup">
+                    <img alt="" class="popup__image">
+                    <h3 class="popup__title"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template class="card-template">
+        <div class="card">
+            <img alt="" class="card__mask" />
+            <button class="card__trash" type="button"></button>
+            <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button class="card__like" type="button"></button>
+            </div>
+        </div>
+    </template>
+</body>
+
+</html>
