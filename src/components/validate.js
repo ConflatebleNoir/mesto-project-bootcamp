@@ -1,18 +1,20 @@
 'use strict';
 
+import { submitButtonEditForm, submitButtonAddForm, nameInput, jobInput, titleInput, urlInput } from './index.js';
+
 //Отобразим ошбику валидации формы 
 function showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add('form__input_type_error');
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('.form__input-error_active');
+    errorElement.classList.add('form__input-error_active');
 };
 
 //скроем
 function hideInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove('form__input_type_error');
-    errorElement.classList.remove('.form__input-error_active');
+    errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
 };
 
@@ -74,5 +76,15 @@ function setSubmitButtonState(isFormValid, button) {
         button.classList.add('form__submit_disabled');
     };
 };
+
+editForm.addEventListener('input', () => {
+    const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
+    setSubmitButtonState(isValidEdit, submitButtonEditForm);
+});
+
+addForm.addEventListener('input', () => {
+    const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
+    setSubmitButtonState(isValidAdd, submitButtonAddForm);
+});
 
 export { showInputError, hideInputError, checkValidity, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState, setSubmitButtonState };

@@ -2,24 +2,24 @@
 
 import '../pages/index.css';
 // подтягиваем элементы формы edit
-export const editFormElement = document.querySelector('#profile-overlay');
-export const nameInput = editFormElement.querySelector('#form__name');
-export const jobInput = editFormElement.querySelector('#form__nickname');
+export const popupEditProfile = document.querySelector('#profile-overlay');
+export const nameInput = popupEditProfile.querySelector('#form__name');
+export const jobInput = popupEditProfile.querySelector('#form__nickname');
 // элементы блока profile
 export const nameProfile = document.querySelector('.profile__name');
 export const jobProfile = document.querySelector('.profile__nickname');
 //элементы формы добавления карточки
-export const addFormElement = document.querySelector('#add-overlay');
-export const titleInput = addFormElement.querySelector('#add__image-name');
-export const urlInput = addFormElement.querySelector('#add__image-url');
+export const popupAddCard = document.querySelector('#add-overlay');
+export const titleInput = popupAddCard.querySelector('#add__image-name');
+export const urlInput = popupAddCard.querySelector('#add__image-url');
 //контейнер карточек
 export const cardsContainer = document.querySelector('.cards');
 //Добавим кнопки для открытия popup
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
 //Добавим кнопки для закрытия popup
-export const editClose = editFormElement.querySelector('.popup-wrapper__close');
-export const addClose = addFormElement.querySelector('.popup-wrapper__close');
+export const editClose = popupEditProfile.querySelector('.popup-wrapper__close');
+export const addClose = popupAddCard.querySelector('.popup-wrapper__close');
 // вытягиваем элементы попапа изображения
 export const imagePopup = document.querySelector('#image-overlay');
 export const imageElement = imagePopup.querySelector('.popup__image');
@@ -27,9 +27,9 @@ export const imageTitle = imagePopup.querySelector('.popup__title');
 export const imageClose = imagePopup.querySelector('.popup-wrapper__close');
 //Добавим формы и кнопки submit
 export const editForm = document.forms.editForm;
-export const editFormSubmitButton = editForm.querySelector('.form__submit');
+export const submitButtonEditForm = editForm.querySelector('.form__submit');
 export const addForm = document.forms.addForm;
-export const addFormSubmitButton = addForm.querySelector('.form__submit');
+export const submitButtonAddForm = addForm.querySelector('.form__submit');
 //Элементы полей
 export const editFormInput = editForm.querySelector('.form__element');
 export const addFormInput = addForm.querySelector('.form__element')
@@ -63,9 +63,27 @@ export const initialCards = [
 ];
 
 import { createCard, addCard } from './card.js';
-import { closePopupByOverlayClick, keyHandler, addFormSubmit, editFormSubmit } from './modal.js';
+import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
-import { showInputError, hideInputError, checkValidity, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState, setSubmitButtonState } from './validate.js';
+import { enableValidation, setSubmitButtonState } from './validate.js';
+
+//Функция добавления карточки через модальное окно
+export function addFormSubmit(evt) {
+    evt.preventDefault();
+
+    addCard(urlInput.value, titleInput.value);
+    evt.target.reset();
+    closePopup(popupAddCard);
+};
+
+//Функция изменения данных профиля
+export function editFormSubmit(evt) {
+    evt.preventDefault();
+
+    nameProfile.textContent = nameInput.value;
+    jobProfile.textContent = jobInput.value;
+    closePopup(popupEditProfile);
+};
 
 // Рендер карточек из массива
 initialCards.forEach((element) => {
@@ -74,59 +92,53 @@ initialCards.forEach((element) => {
 });
 
 editButton.addEventListener('click', () => {
-    openPopup(editFormElement);
+    openPopup(popupEditProfile);
     //Перенесем данные из поля профиля в форму
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
-    setSubmitButtonState(true, editFormSubmitButton);
+    setSubmitButtonState(true, submitButtonEditForm);
 });
 
 editClose.addEventListener('click', (evt) => {
-    closePopup(editFormElement);
+    closePopup(popupEditProfile);
 });
 
 addButton.addEventListener('click', () => {
-    openPopup(addFormElement);
-    setSubmitButtonState(false, addFormSubmitButton);
+    openPopup(popupAddCard);
+    setSubmitButtonState(false, submitButtonAddForm);
 });
 
 addClose.addEventListener('click', (evt) => {
-    closePopup(addFormElement);
+    closePopup(popupAddCard);
 });
 
 imageClose.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
-editFormElement.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, editFormElement, editForm);
+popupEditProfile.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, popupEditProfile, editForm);
 });
 
-addFormElement.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, addFormElement, addForm);
+popupAddCard.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, popupAddCard, addForm);
 });
 
 imagePopup.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, imagePopup, imageElement);
 });
 
-document.addEventListener('keydown', (evt) => {
-    keyHandler(evt, editFormElement);
-    keyHandler(evt, addFormElement);
-    keyHandler(evt, imagePopup);
-});
-
-editForm.addEventListener('input', () => {
-    const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
-    setSubmitButtonState(isValidEdit, editFormSubmitButton);
-});
-
-addForm.addEventListener('input', () => {
-    const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
-    setSubmitButtonState(isValidAdd, addFormSubmitButton);
-});
-
 editForm.addEventListener('submit', editFormSubmit);
 addForm.addEventListener('submit', addFormSubmit);
 
 enableValidation();
+
+enableValidation({
+    errorElementSelector: `.${inputElement.id}-error`,
+    inputListSelector: '.form__element',
+    submitButtonSelector: '.form__submit',
+    formListSelector: '.form',
+    inputErrorClass: 'form__input_type_error',
+    textErrorClass: 'form__input-error_active',
+    submitButtonClass: 'form__submit_disabled',
+});
