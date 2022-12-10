@@ -32,7 +32,8 @@ export const addForm = document.forms.addForm;
 export const submitButtonAddForm = addForm.querySelector('.form__submit');
 //Элементы полей
 export const editFormInput = editForm.querySelector('.form__element');
-export const addFormInput = addForm.querySelector('.form__element')
+export const addFormInput = addForm.querySelector('.form__element');
+const inputElement = document.querySelector('.form__element')
 
 //Добавим массив свойств карточек
 export const initialCards = [
@@ -131,14 +132,11 @@ imagePopup.addEventListener('click', (evt) => {
 editForm.addEventListener('submit', editFormSubmit);
 addForm.addEventListener('submit', addFormSubmit);
 
-enableValidation();
-
 enableValidation({
-    errorElementSelector: `.${inputElement.id}-error`,
     inputListSelector: '.form__element',
     submitButtonSelector: '.form__submit',
     formListSelector: '.form',
     inputErrorClass: 'form__input_type_error',
     textErrorClass: 'form__input-error_active',
-    submitButtonClass: 'form__submit_disabled',
+    disabledButtonClass: 'form__submit_disabled',
 });
