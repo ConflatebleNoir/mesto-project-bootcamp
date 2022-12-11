@@ -77,14 +77,4 @@ function setSubmitButtonState(isFormValid, button) {
     };
 };
 
-editForm.addEventListener('input', () => {
-    const isValidEdit = nameInput.value.length >= 2 && jobInput.value.length >= 2;
-    setSubmitButtonState(isValidEdit, submitButtonEditForm);
-});
-
-addForm.addEventListener('input', () => {
-    const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
-    setSubmitButtonState(isValidAdd, submitButtonAddForm);
-});
-
 export { showInputError, hideInputError, checkValidity, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState, setSubmitButtonState };

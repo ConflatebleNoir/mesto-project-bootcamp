@@ -11,13 +11,13 @@ import { openPopup, closePopup } from './utils.js';
 export function closePopupByOverlayClick(evt, popup, form) {
     const abroad = evt.composedPath().includes(form);
     if (!abroad) {
-        popup.classList.add('overlay_hidden');
+        closePopup(popup);
     };
 };
 
 //Функция сокрытия окна, нажатием на Escape
 export function keyHandler(evt, popup) {
-    if (evt.key === 'Escape') {
+    if (evt.key === 'Escape' && popup.classList.value.includes('overlay')) {
         closePopup(popup);
     };
 };
