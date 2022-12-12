@@ -25,5 +25,4 @@ export function openPopup(popup) {
 //Функция сокрытия попапов
 export function closePopup(popup) {
     popup.classList.add('overlay_hidden');
-    document.removeEventListener('keydown', keyHandler);
 };

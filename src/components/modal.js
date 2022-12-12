@@ -17,9 +17,10 @@ export function closePopupByOverlayClick(evt, popup, form) {
 
 //Функция сокрытия окна, нажатием на Escape
 export function keyHandler(evt, popup) {
-    if (evt.key === 'Escape' && popup.classList.value.includes('overlay')) {
-        closePopup(popup);
+    if (evt.key === 'Escape') {
+        closePopup(popup.classList.value.includes('overlay'));
     };
+    document.removeEventListener('keydown', keyHandler);
 };
 
 //Функция вывода изображения карточки в виде popup
