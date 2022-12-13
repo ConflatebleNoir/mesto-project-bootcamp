@@ -7,6 +7,7 @@ const jobInput = popupEditProfile.querySelector('#form__nickname');
 // элементы блока profile
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__nickname');
+const avatarProfile = document.querySelector('.profile__avatar');
 //элементы формы добавления карточки
 const popupAddCard = document.querySelector('#add-overlay');
 const titleInput = popupAddCard.querySelector('#add__image-name');
@@ -39,6 +40,7 @@ export {
     jobInput,
     nameProfile,
     jobProfile,
+    avatarProfile,
     popupAddCard,
     titleInput,
     urlInput,

@@ -1,7 +1,7 @@
 // Токен: 4a077796-6e98-44e5-9c13-60ffdba9f31a
 // Идентификатор группы: cohort-55
 
-import { cardsContainer, nameProfile, jobProfile } from './variables';
+import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variables';
 import { createCard } from './card.js';
 
 //Вызов данных пользователя и их рендер
@@ -19,6 +19,7 @@ export function renderProfileInfo() {
         })
         .then((element) => {
             console.log(element);
+            avatarProfile.setAttribute("src", element["avatar"]);
             nameProfile.textContent = element["name"];
             jobProfile.textContent = element["about"];
         })
@@ -50,5 +51,4 @@ export function renderGroupCards() {
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
-
 }
