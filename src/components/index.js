@@ -63,10 +63,11 @@ export const initialCards = [
     }
 ];
 
-import { createCard, addCard } from './card.js';
+import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
+import { renderGroupCards } from './api.js'
 
 //Функция добавления карточки через модальное окно
 export function addFormSubmit(evt) {
@@ -86,11 +87,7 @@ export function editFormSubmit(evt) {
     closePopup(popupEditProfile);
 };
 
-// Рендер карточек из массива
-initialCards.forEach((element) => {
-    const cardElement = createCard(element.link, element.name);
-    cardsContainer.append(cardElement);
-});
+renderGroupCards();
 
 editButton.addEventListener('click', () => {
     openPopup(popupEditProfile);
