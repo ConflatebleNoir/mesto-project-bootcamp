@@ -1,6 +1,6 @@
 'use strict';
 
-import { cardsContainer } from "./index.js";
+import { cardsContainer } from "./variables.js";
 import { imagePopupToggle } from "./modal.js";
 
 export function createCard(imageValue, titleValue) {

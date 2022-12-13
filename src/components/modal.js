@@ -4,7 +4,7 @@ import {
     imagePopup,
     imageElement,
     imageTitle,
-} from './index.js';
+} from './variables.js';
 import { openPopup, closePopup } from './utils.js';
 
 //Функция закрытия попапов кликом/тапом на оверлей

@@ -1,12 +1,12 @@
 // Токен: 4a077796-6e98-44e5-9c13-60ffdba9f31a
 // Идентификатор группы: cohort-55
 
-import { cardsContainer, nameProfile, jobProfile } from './index.js'
+import { cardsContainer, nameProfile, jobProfile } from './variables';
 import { createCard } from './card.js';
 
 //Вызов данных пользователя и их рендер
 export function renderProfileInfo() {
-    return fetch("https://nomoreparties.co/v1/cohort-55/me", {
+    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a"
         }
@@ -17,11 +17,13 @@ export function renderProfileInfo() {
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .then((elements) => {
-            elements.forEach((element) => {
-                nameProfile.textContent = element["name"];
-                jobProfile.textContent = element["about"];
-            })
+        .then((element) => {
+            console.log(element);
+            nameProfile.textContent = element["name"];
+            jobProfile.textContent = element["about"];
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
         })
 }
 

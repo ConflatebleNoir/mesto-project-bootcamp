@@ -1,6 +1,6 @@
 'use strict';
 
-import { submitButtonEditForm, submitButtonAddForm, nameInput, jobInput, titleInput, urlInput } from './index.js';
+import { submitButtonEditForm, submitButtonAddForm, nameInput, jobInput, titleInput, urlInput } from './variables.js';
 import { keyHandler } from "./modal.js";
 import { setSubmitButtonState } from './validate'
 
