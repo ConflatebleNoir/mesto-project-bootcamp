@@ -53,7 +53,7 @@ export function renderGroupCards() {
             console.log(`Ошибка: ${res.status}`);
         })
 }
-
+//обновляем данные пользователя и получаем их
 export function patchUserInfo(name, job, avatar) {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
         method: "PATCH",
@@ -78,7 +78,7 @@ export function patchUserInfo(name, job, avatar) {
             console.log(`Ошибка: ${res.status}`);
         })
 }
-
+//отправка созданной карточки на сервер
 export function postCard(name, link) {
     return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
         method: "POST",
