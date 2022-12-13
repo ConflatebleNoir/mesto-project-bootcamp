@@ -2,7 +2,10 @@
 // Идентификатор группы: cohort-55
 
 import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variables';
+
 import { createCard } from './card.js';
+import { nameInput } from './variables';
+import { jobInput } from './variables';
 
 //Вызов данных пользователя и их рендер
 export function renderProfileInfo() {
@@ -47,6 +50,31 @@ export function renderGroupCards() {
                 const cardElement = createCard(element.link, element.name);
                 cardsContainer.append(cardElement);
             });
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}
+
+export function patchUserInfo(name, job, avatar) {
+    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
+        method: "PATCH",
+        headers: {
+            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: `${name.textContent}`,
+            about: `${job.textContent}`,
+            avatar: `${avatar.getAttribute("src")}`
+        })
+    })
+        .then((res) => {
+            if (res.ok) {
+                console.log(res)
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);

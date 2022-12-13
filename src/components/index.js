@@ -18,15 +18,19 @@ import {
     editForm,
     submitButtonEditForm,
     addForm,
-    submitButtonAddForm
+    submitButtonAddForm,
+    nameProfile,
+    jobProfile,
+    avatarProfile
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
-import { renderGroupCards, renderProfileInfo } from './api.js'
+import { renderGroupCards, renderProfileInfo, patchUserInfo } from './api.js'
 
 renderProfileInfo();
+patchUserInfo(nameProfile, jobProfile, avatarProfile);
 renderGroupCards();
 
 //Функция добавления карточки через модальное окно
@@ -44,6 +48,7 @@ export function editFormSubmit(evt) {
 
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
+    patchUserInfo(nameProfile, jobProfile, avatarProfile);
     closePopup(popupEditProfile);
 };
 
