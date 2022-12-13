@@ -27,7 +27,7 @@ import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
-import { renderGroupCards, renderProfileInfo, patchUserInfo } from './api.js'
+import { renderGroupCards, renderProfileInfo, patchUserInfo, postCard } from './api.js'
 
 renderProfileInfo();
 renderGroupCards();
@@ -37,6 +37,7 @@ export function addFormSubmit(evt) {
     evt.preventDefault();
 
     addCard(urlInput.value, titleInput.value);
+    postCard(titleInput.value, urlInput.value);
     evt.target.reset();
     closePopup(popupAddCard);
 };
@@ -59,7 +60,7 @@ editButton.addEventListener('click', () => {
     setSubmitButtonState(true, submitButtonEditForm);
 });
 
-editClose.addEventListener('click', (evt) => {
+editClose.addEventListener('click', () => {
     closePopup(popupEditProfile);
 });
 
@@ -68,7 +69,7 @@ addButton.addEventListener('click', () => {
     setSubmitButtonState(false, submitButtonAddForm);
 });
 
-addClose.addEventListener('click', (evt) => {
+addClose.addEventListener('click', () => {
     closePopup(popupAddCard);
 });
 

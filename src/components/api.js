@@ -4,8 +4,6 @@
 import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variables';
 
 import { createCard } from './card.js';
-import { nameInput } from './variables';
-import { jobInput } from './variables';
 
 //Вызов данных пользователя и их рендер
 export function renderProfileInfo() {
@@ -71,12 +69,35 @@ export function patchUserInfo(name, job, avatar) {
     })
         .then((res) => {
             if (res.ok) {
-                console.log(res)
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
         .then(renderProfileInfo)
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}
+
+export function postCard(name, link) {
+    return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
+        method: "POST",
+        headers: {
+            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: `${name}`,
+            link: `${link}`
+        })
+    })
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then(renderGroupCards)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })

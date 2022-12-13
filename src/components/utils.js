@@ -18,7 +18,6 @@ export function openPopup(popup) {
         const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
         setSubmitButtonState(isValidAdd, submitButtonAddForm);
     });
-    console.log(popup.classList)
 
     document.addEventListener('keydown', keyHandler);
 };
@@ -26,5 +25,4 @@ export function openPopup(popup) {
 //Функция сокрытия попапов
 export function closePopup(popup) {
     popup.classList.add('overlay_hidden');
-    console.log(popup.classList)
 };
