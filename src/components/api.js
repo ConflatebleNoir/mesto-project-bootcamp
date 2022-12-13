@@ -45,7 +45,7 @@ export function renderGroupCards() {
         .then((elements) => {
             console.log(elements)
             elements.forEach((element) => {
-                const cardElement = createCard(element.link, element.name);
+                const cardElement = createCard(element.link, element.name, element.likes);
                 cardsContainer.append(cardElement);
             });
         })
@@ -102,3 +102,7 @@ export function postCard(name, link) {
             console.log(`Ошибка: ${res.status}`);
         })
 }
+
+// export function getLikesCount() {
+//     return fetch("")
+// }
