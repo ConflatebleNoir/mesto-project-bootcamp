@@ -76,6 +76,7 @@ export function patchUserInfo(name, job, avatar) {
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
+        .then(renderProfileInfo)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })

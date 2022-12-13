@@ -30,7 +30,6 @@ import { enableValidation, setSubmitButtonState } from './validate.js';
 import { renderGroupCards, renderProfileInfo, patchUserInfo } from './api.js'
 
 renderProfileInfo();
-patchUserInfo(nameProfile, jobProfile, avatarProfile);
 renderGroupCards();
 
 //Функция добавления карточки через модальное окно
