@@ -37,7 +37,8 @@ export function createCard(imageValue, titleValue, likeValue) {
 
 //функция рендера карточки
 export function addCard(imageValue, titleValue) {
-    const countLikes = document.querySelector('.card__like-count')
+    //Поскольку изначально должно быть 0 лайков, то обозначим это
+    const countLikes = document.querySelector('.card__like-count');
     countLikes.textContent = 0;
 
     const cardElement = createCard(imageValue, titleValue, countLikes);
