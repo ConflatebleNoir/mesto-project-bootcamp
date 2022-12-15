@@ -5,6 +5,7 @@ import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variab
 
 import { createCard } from './card.js';
 
+//3. Загрузка информации о пользователе с сервера
 //Вызов данных пользователя и их рендер
 export const renderProfileInfo = () => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
@@ -29,6 +30,7 @@ export const renderProfileInfo = () => {
         })
 }
 
+// 4. Загрузка карточек с сервера
 //Вызов карточек пользователей и их рендер + рендер их значения лайков
 export const renderGroupCards = () => {
     return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
@@ -53,6 +55,8 @@ export const renderGroupCards = () => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
+
+// 5. Редактирование профиля
 //обновляем данные пользователя и получаем их
 export const patchUserInfo = (name, job) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
@@ -77,7 +81,9 @@ export const patchUserInfo = (name, job) => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
-//отправка созданной карточки на сервер
+
+//6. Добавление новой карточки
+//отправка созданной карточки на сервер + обновляем список
 export const postCard = (name, link) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
         method: "POST",

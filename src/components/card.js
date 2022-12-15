@@ -8,14 +8,20 @@ export function createCard(imageValue, titleValue, likeValue) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
     const cardMask = cardElement.querySelector('.card__mask');
+    const likeCounter = cardElement.querySelector('.card__like-count');
     cardMask.setAttribute("src", `${imageValue}`);
     cardMask.setAttribute("alt", `${titleValue}`);
     cardElement.querySelector('.card__title').textContent = titleValue;
-    cardElement.querySelector('.card__like-count').textContent = likeValue.length;
+    likeCounter.textContent = likeValue.length;
 
     cardElement.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('card__like')) {
             evt.target.classList.toggle('card__like_active');
+            if (!evt.target.classList.contains('card__like_active')) {
+                likeCounter.textContent--;
+            } else if (evt.target.classList.contains('card__like_active')) {
+                likeCounter.textContent++;
+            }
         };
     });
 
