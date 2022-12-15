@@ -91,7 +91,6 @@ export const postCard = (name, link) => {
         })
 }
 
-//7. Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
 
 //удаление карточки с сервера
 export const removeUserCard = (cardID) => {

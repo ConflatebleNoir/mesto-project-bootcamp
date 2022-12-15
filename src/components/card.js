@@ -2,7 +2,7 @@
 
 import { cardsContainer } from "./variables.js";
 import { imagePopupToggle } from "./modal.js";
-import { renderGroupCards, getOwnerID, putLike, deleteLike } from "./api.js"
+import { renderGroupCards, removeUserCard, putLike, deleteLike } from "./api.js"
 
 export function createCard(imageValue, titleValue, likeValue) {
     const cardTemplate = document.querySelector('.card-template').content;
@@ -31,12 +31,6 @@ export function createCard(imageValue, titleValue, likeValue) {
     });
 
     cardElement.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('card__trash')) {
-            evt.currentTarget.remove();
-        };
-    });
-
-    cardElement.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('card__mask')) {
             imagePopupToggle(evt.target, cardElement.querySelector('.card__title'));
         };
@@ -50,7 +44,7 @@ export function createCard(imageValue, titleValue, likeValue) {
 export function addCard(imageValue, titleValue) {
     //Поскольку изначально должно быть 0 лайков, то обозначим это
     const countLikes = document.querySelector('.card__like-count');
-    countLikes.textContent = 0;
+    countLikes.textContent = '0';
 
     const cardElement = createCard(imageValue, titleValue, countLikes);
     cardsContainer.prepend(cardElement);
@@ -65,6 +59,15 @@ renderGroupCards().then((elements) => {
         if (element["owner"]["_id"] !== '5d05e97582a44e0e5de2165a') {
             trash.remove();
         };
+        //8. Удаление карточки
+        cardElement.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('card__trash') && element["owner"]["_id"] === '5d05e97582a44e0e5de2165a') {
+                evt.currentTarget.remove();
+                removeUserCard((element["_id"]))
+            };
+        });
+        cardElement
+        console.log(element["_id"]);
         cardsContainer.append(cardElement);
     });
 });
