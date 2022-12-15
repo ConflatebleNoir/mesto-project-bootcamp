@@ -1,10 +1,6 @@
 // Токен: 4a077796-6e98-44e5-9c13-60ffdba9f31a
 // Идентификатор группы: cohort-55
 
-import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variables';
-
-import { createCard } from './card.js';
-
 //3. Загрузка информации о пользователе с сервера
 //Вызов данных пользователя и их рендер
 export const renderProfileInfo = () => {
@@ -18,12 +14,6 @@ export const renderProfileInfo = () => {
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((element) => {
-            avatarProfile.setAttribute("src", `${element["avatar"]}`);
-            nameProfile.textContent = element["name"];
-            jobProfile.textContent = element["about"];
-            console.log(element.avatar)
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -43,13 +33,6 @@ export const renderGroupCards = () => {
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((elements) => {
-            console.log(elements)
-            elements.forEach((element) => {
-                const cardElement = createCard(element.link, element.name, element.likes);
-                cardsContainer.append(cardElement);
-            });
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -108,7 +91,8 @@ export const postCard = (name, link) => {
         })
 }
 
-export const getOwnerID = (ownerID) => {
+//7. Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
+export const getOwnerID = () => {
     return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a"
@@ -119,15 +103,6 @@ export const getOwnerID = (ownerID) => {
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((items) => {
-            items.forEach((item) => {
-                if (item["owner"]["_id"] === '5d05e97582a44e0e5de2165a') {
-                    ownerID = item["owner"]["_id"];
-                }
-            })
-            console.log(ownerID)
-            return ownerID;
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -156,13 +131,62 @@ export const removeUserCard = (cardID) => {
 
 getOwnerID();
 
+export const putLike = (cardId, likesCounter) => {
+    return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: {
+            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            likes: likesCounter.length++
+        })
+    })
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then((items) => {
+            console.log(items);
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}
+
+export const deleteLike = (cardId, likesCounter) => {
+    return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: {
+            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            likes: likesCounter.length--
+        })
+    })
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then((items) => {
+            console.log(items);
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}
 
 export const patchUserAvatar = (avatarSrcAttribute) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
         method: "PATCH",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             avatar: `${avatarSrcAttribute}`
@@ -179,3 +203,23 @@ export const patchUserAvatar = (avatarSrcAttribute) => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
+
+export const getCardID = () => {
+    return fetch("https://nomoreparties.co/v1/cohort-55/cards")
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then((items) => {
+            items.forEach((item) => {
+                console.log(item["_id"]);
+            })
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}
+
+getCardID()

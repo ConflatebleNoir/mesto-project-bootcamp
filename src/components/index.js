@@ -36,10 +36,14 @@ import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
-import { renderGroupCards, renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
+import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
 
-renderProfileInfo();
-renderGroupCards();
+renderProfileInfo().then((element) => {
+    avatarProfile.setAttribute("src", `${element["avatar"]}`);
+    nameProfile.textContent = element["name"];
+    jobProfile.textContent = element["about"];
+    console.log(element.avatar)
+});
 
 //Функция изменения данных профиля
 export function editFormSubmit(evt) {
