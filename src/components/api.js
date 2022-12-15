@@ -92,22 +92,7 @@ export const postCard = (name, link) => {
 }
 
 //7. Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
-export const getOwnerID = () => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
-};
+
 //удаление карточки с сервера
 export const removeUserCard = (cardID) => {
     return fetch(`https://nomoreparties.co/v1/cohort-55/cards/${cardID}`, {
@@ -123,13 +108,10 @@ export const removeUserCard = (cardID) => {
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .then(res => console.log(res))
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
-
-getOwnerID();
 
 export const putLike = (cardId, likesCounter) => {
     return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {

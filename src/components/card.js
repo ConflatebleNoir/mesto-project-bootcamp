@@ -10,13 +10,6 @@ export function createCard(imageValue, titleValue, likeValue) {
 
     const cardMask = cardElement.querySelector('.card__mask');
     const likeCounter = cardElement.querySelector('.card__like-count');
-    // getOwnerID().then((items) => {
-    //     items.forEach((item) => {
-    //         if (item["owner"]["_id"] === '5d05e97582a44e0e5de2165a') {
-    //             trash.remove();
-    //         }
-    //     })
-    // })
 
     cardMask.setAttribute("src", `${imageValue}`);
     cardMask.setAttribute("alt", `${titleValue}`);
@@ -68,6 +61,7 @@ renderGroupCards().then((elements) => {
     elements.forEach((element) => {
         const cardElement = createCard(element.link, element.name, element.likes);
         const trash = cardElement.querySelector('.card__trash');
+        //7. Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
         if (element["owner"]["_id"] !== '5d05e97582a44e0e5de2165a') {
             trash.remove();
         };
