@@ -112,50 +112,38 @@ export const removeUserCard = (cardID) => {
         })
 }
 
-export const putLike = (cardId, likesCounter) => {
+export const putLike = (cardId) => {
     return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
         method: "PUT",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            likes: likesCounter.length++
-        })
+        }
     })
         .then((res) => {
             if (res.ok) {
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((items) => {
-            console.log(items);
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
 
-export const deleteLike = (cardId, likesCounter) => {
+export const deleteLike = (cardId) => {
     return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
-        method: "PUT",
+        method: "DELETE",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            likes: likesCounter.length--
-        })
+        }
     })
         .then((res) => {
             if (res.ok) {
                 return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((items) => {
-            console.log(items);
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -163,7 +151,7 @@ export const deleteLike = (cardId, likesCounter) => {
 }
 
 export const patchUserAvatar = (avatarSrcAttribute) => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
+    return fetch("https://nomoreparties.co/v1/cohort-55/users/me/", {
         method: "PATCH",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
@@ -184,23 +172,3 @@ export const patchUserAvatar = (avatarSrcAttribute) => {
             console.log(`Ошибка: ${res.status}`);
         })
 }
-
-export const getCardID = () => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/cards")
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then((items) => {
-            items.forEach((item) => {
-                console.log(item["_id"]);
-            })
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
-}
-
-getCardID()

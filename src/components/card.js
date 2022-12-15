@@ -17,20 +17,6 @@ export function createCard(imageValue, titleValue, likeValue) {
     likeCounter.textContent = likeValue.length;
 
     cardElement.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('card__like')) {
-            evt.target.classList.toggle('card__like_active');
-            if (!evt.target.classList.contains('card__like_active')) {
-                likeCounter.textContent--;
-                deleteLike(evt.currentTarget, likeCounter);
-            } else if (evt.target.classList.contains('card__like_active')) {
-                likeCounter.textContent++;
-                console.log(putLike(evt.currentTarget, likeCounter))
-                putLike(evt.currentTarget, likeCounter)
-            }
-        };
-    });
-
-    cardElement.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('card__mask')) {
             imagePopupToggle(evt.target, cardElement.querySelector('.card__title'));
         };
@@ -55,19 +41,36 @@ renderGroupCards().then((elements) => {
     elements.forEach((element) => {
         const cardElement = createCard(element.link, element.name, element.likes);
         const trash = cardElement.querySelector('.card__trash');
-        //7. Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
+        //7.1 Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
         if (element["owner"]["_id"] !== '5d05e97582a44e0e5de2165a') {
             trash.remove();
         };
-        //8. Удаление карточки
+        //7.2 Удаление карточки
         cardElement.addEventListener('click', (evt) => {
             if (evt.target.classList.contains('card__trash') && element["owner"]["_id"] === '5d05e97582a44e0e5de2165a') {
                 evt.currentTarget.remove();
-                removeUserCard((element["_id"]))
+                removeUserCard((element["_id"]));
             };
         });
-        cardElement
-        console.log(element["_id"]);
+
+        const likeCounter = cardElement.querySelector('.card__like-count');
+        //8. Постановка/снятие лайка (добавление данных пользователя в массив и удаление из массива лайков данных пользователя)
+        cardElement.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('card__like')) {
+                if (evt.target.classList.contains('card__like_active') && element["_id"]) {
+                    deleteLike(element["_id"]);
+                    evt.target.classList.remove('card__like_active');
+                    likeCounter.textContent--;
+                } else {
+                    evt.target.classList.add('card__like_active');
+                    putLike(element["_id"]);
+                    likeCounter.textContent++;
+                }
+            };
+        });
+
+        //9
+
         cardsContainer.append(cardElement);
     });
 });
