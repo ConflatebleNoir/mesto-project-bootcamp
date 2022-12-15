@@ -30,9 +30,15 @@ const editForm = document.forms.editForm;
 const submitButtonEditForm = editForm.querySelector('.form__submit');
 const addForm = document.forms.addForm;
 const submitButtonAddForm = addForm.querySelector('.form__submit');
+const avatarForm = document.forms.avatarForm;
+const submitButtonAvatarForm = avatarForm.querySelector('.form__submit');
 //Элементы полей
 const editFormInput = editForm.querySelector('.form__element');
 const addFormInput = addForm.querySelector('.form__element');
+const avatarFormInput = avatarForm.querySelector('.form__element');
+
+const popupAvatar = document.querySelector('#avatar-overlay');
+const avatarClose = popupAvatar.querySelector('.popup-wrapper__close');
 
 export {
     popupEditProfile,
@@ -57,6 +63,11 @@ export {
     submitButtonEditForm,
     addForm,
     submitButtonAddForm,
+    avatarForm,
+    submitButtonAvatarForm,
     editFormInput,
-    addFormInput
+    addFormInput,
+    avatarFormInput,
+    popupAvatar,
+    avatarClose
 }

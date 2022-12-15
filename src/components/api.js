@@ -5,10 +5,6 @@ import { cardsContainer, nameProfile, jobProfile, avatarProfile } from './variab
 
 import { createCard } from './card.js';
 
-// setTimeout(function () {
-//     location.reload();
-// }, 10000);
-
 //Вызов данных пользователя и их рендер
 export const renderProfileInfo = () => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
@@ -23,10 +19,10 @@ export const renderProfileInfo = () => {
             return Promise.reject(`Ошибка: ${res.status}`);
         })
         .then((element) => {
-            console.log(element);
             avatarProfile.setAttribute("src", element["avatar"]);
             nameProfile.textContent = element["name"];
             jobProfile.textContent = element["about"];
+            console.log(element.avatar)
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -58,7 +54,7 @@ export const renderGroupCards = () => {
         })
 }
 //обновляем данные пользователя и получаем их
-export const patchUserInfo = (name, job, avatar) => {
+export const patchUserInfo = (name, job) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
         method: "PATCH",
         headers: {
@@ -67,8 +63,7 @@ export const patchUserInfo = (name, job, avatar) => {
         },
         body: JSON.stringify({
             name: `${name.textContent}`,
-            about: `${job.textContent}`,
-            avatar: `${avatar.getAttribute("src")}`
+            about: `${job.textContent}`
         })
     })
         .then((res) => {
@@ -154,3 +149,29 @@ export const removeUserCard = (cardID) => {
 }
 
 getOwnerID();
+
+export const patchUserAvatar = (avatarItem) => {
+    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
+        method: "PATCH",
+        headers: {
+            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            avatar: `${avatarItem.getAttribute("src")}`
+        })
+    })
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .then((item) => {
+            avatarItem.setAttribute("src", `${item["avatar"]}`)
+            console.log(avatarItem);
+        })
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
+}

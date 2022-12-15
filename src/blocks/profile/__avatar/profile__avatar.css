@@ -2,4 +2,15 @@
         max-width: 120px;
         min-height: 120px;
         border-radius: 50%;
+        transition: .2s linear;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    .profile__avatar:hover {
+        opacity: 0.2;
+        background-image: url(../../../images/editAvatar.svg);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
     }

@@ -5,32 +5,51 @@ import {
     popupEditProfile,
     nameInput,
     jobInput,
+    nameProfile,
+    jobProfile,
+    avatarProfile,
     popupAddCard,
     titleInput,
     urlInput,
+    cardsContainer,
     editButton,
     addButton,
     editClose,
     addClose,
     imagePopup,
     imageElement,
+    imageTitle,
     imageClose,
     editForm,
     submitButtonEditForm,
     addForm,
     submitButtonAddForm,
-    nameProfile,
-    jobProfile,
-    avatarProfile
+    avatarForm,
+    submitButtonAvatarForm,
+    editFormInput,
+    addFormInput,
+    avatarFormInput,
+    popupAvatar,
+    avatarClose
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
-import { renderGroupCards, renderProfileInfo, patchUserInfo, postCard } from './api.js'
+import { renderGroupCards, renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
 
 renderProfileInfo();
 renderGroupCards();
+
+//Функция изменения данных профиля
+export function editFormSubmit(evt) {
+    evt.preventDefault();
+
+    nameProfile.textContent = nameInput.value;
+    jobProfile.textContent = jobInput.value;
+    patchUserInfo(nameProfile, jobProfile);
+    closePopup(popupEditProfile);
+};
 
 //Функция добавления карточки через модальное окно
 export function addFormSubmit(evt) {
@@ -42,14 +61,15 @@ export function addFormSubmit(evt) {
     closePopup(popupAddCard);
 };
 
-//Функция изменения данных профиля
-export function editFormSubmit(evt) {
+//Функция изменения данных аватара профиля
+export function avatarFormSubmit(evt) {
     evt.preventDefault();
 
-    nameProfile.textContent = nameInput.value;
-    jobProfile.textContent = jobInput.value;
-    patchUserInfo(nameProfile, jobProfile, avatarProfile);
-    closePopup(popupEditProfile);
+    avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
+    patchUserAvatar(avatarProfile);
+    renderProfileInfo()
+    evt.target.reset();
+    closePopup(popupAvatar);
 };
 
 editButton.addEventListener('click', () => {
@@ -77,6 +97,15 @@ imageClose.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 
+avatarProfile.addEventListener('click', () => {
+    openPopup(popupAvatar);
+    setSubmitButtonState(true, submitButtonAvatarForm);
+});
+
+avatarClose.addEventListener('click', () => {
+    closePopup(popupAvatar)
+})
+
 popupEditProfile.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, popupEditProfile, editForm);
 });
@@ -85,12 +114,17 @@ popupAddCard.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, popupAddCard, addForm);
 });
 
+popupAvatar.addEventListener('click', (evt) => {
+    closePopupByOverlayClick(evt, popupAvatar, avatarForm)
+})
+
 imagePopup.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, imagePopup, imageElement);
 });
 
 editForm.addEventListener('submit', editFormSubmit);
 addForm.addEventListener('submit', addFormSubmit);
+avatarForm.addEventListener('submit', avatarFormSubmit);
 
 enableValidation({
     inputListSelector: '.form__element',
