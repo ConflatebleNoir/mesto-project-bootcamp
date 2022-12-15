@@ -66,8 +66,8 @@ export function avatarFormSubmit(evt) {
     evt.preventDefault();
 
     avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
-    patchUserAvatar(avatarProfile);
-    renderProfileInfo()
+    console.log(avatarProfile.getAttribute("src"))
+    patchUserAvatar(avatarProfile.getAttribute("src"));
     evt.target.reset();
     closePopup(popupAvatar);
 };

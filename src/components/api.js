@@ -20,7 +20,7 @@ export const renderProfileInfo = () => {
             return Promise.reject(`Ошибка: ${res.status}`);
         })
         .then((element) => {
-            avatarProfile.setAttribute("src", element["avatar"]);
+            avatarProfile.setAttribute("src", `${element["avatar"]}`);
             nameProfile.textContent = element["name"];
             jobProfile.textContent = element["about"];
             console.log(element.avatar)
@@ -156,15 +156,16 @@ export const removeUserCard = (cardID) => {
 
 getOwnerID();
 
-export const patchUserAvatar = (avatarItem) => {
+
+export const patchUserAvatar = (avatarSrcAttribute) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
         method: "PATCH",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
+            "Content-Type": "application/x-www-form-urlencoded"
         },
         body: JSON.stringify({
-            avatar: `${avatarItem.getAttribute("src")}`
+            avatar: `${avatarSrcAttribute}`
         })
     })
         .then((res) => {
@@ -173,10 +174,7 @@ export const patchUserAvatar = (avatarItem) => {
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .then((item) => {
-            avatarItem.setAttribute("src", `${item["avatar"]}`)
-            console.log(avatarItem);
-        })
+        .then(renderProfileInfo)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
