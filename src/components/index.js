@@ -34,16 +34,17 @@ import {
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
-import { openPopup, closePopup } from './utils.js';
+import { openPopup, closePopup, renderLoading } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
 
-renderProfileInfo().then((element) => {
-    avatarProfile.setAttribute("src", `${element["avatar"]}`);
-    nameProfile.textContent = element["name"];
-    jobProfile.textContent = element["about"];
-    console.log(element.avatar)
-});
+renderProfileInfo()
+    .then((element) => {
+        avatarProfile.setAttribute("src", `${element["avatar"]}`);
+        nameProfile.textContent = element["name"];
+        jobProfile.textContent = element["about"];
+        console.log(element.avatar)
+    })
 
 //Функция изменения данных профиля
 export function editFormSubmit(evt) {
@@ -51,29 +52,43 @@ export function editFormSubmit(evt) {
 
     nameProfile.textContent = nameInput.value;
     jobProfile.textContent = jobInput.value;
-    patchUserInfo(nameProfile, jobProfile);
-    closePopup(popupEditProfile);
+
+    renderLoading(true, submitButtonEditForm)
+    console.log(renderLoading(true, submitButtonEditForm))
+    patchUserInfo(nameProfile, jobProfile)
+        .finally(() => {
+            closePopup(popupEditProfile);
+            renderLoading(false, submitButtonEditForm)
+        })
 };
 
 //Функция добавления карточки через модальное окно
 export function addFormSubmit(evt) {
     evt.preventDefault();
+    renderLoading(true, submitButtonAddForm)
 
     addCard(urlInput.value, titleInput.value);
-    postCard(titleInput.value, urlInput.value);
+    postCard(titleInput.value, urlInput.value)
+        .finally(() => {
+            renderLoading(false, submitButtonAddForm)
+            closePopup(popupAddCard);
+        })
     evt.target.reset();
-    closePopup(popupAddCard);
 };
 
 //10. Функция изменения данных аватара профиля
 export function avatarFormSubmit(evt) {
     evt.preventDefault();
+    renderLoading(true, submitButtonAvatarForm)
 
     avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
     console.log(avatarProfile.getAttribute("src"))
-    patchUserAvatar(avatarProfile.getAttribute("src"));
+    patchUserAvatar(avatarProfile.getAttribute("src"))
+        .finally(() => {
+            renderLoading(false, submitButtonAddForm)
+            closePopup(popupAvatar);
+        })
     evt.target.reset();
-    closePopup(popupAvatar);
 };
 
 editButton.addEventListener('click', () => {

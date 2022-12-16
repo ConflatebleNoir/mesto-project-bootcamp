@@ -1,6 +1,13 @@
 'use strict';
 
-import { submitButtonEditForm, submitButtonAddForm, nameInput, jobInput, titleInput, urlInput } from './variables.js';
+import {
+    submitButtonEditForm,
+    submitButtonAddForm,
+    nameInput,
+    jobInput,
+    titleInput,
+    urlInput
+} from './variables.js';
 import { keyHandler } from "./modal.js";
 import { setSubmitButtonState } from './validate'
 
@@ -26,3 +33,11 @@ export function openPopup(popup) {
 export function closePopup(popup) {
     popup.classList.add('overlay_hidden');
 };
+
+export function renderLoading(isLoading, button) {
+    if (isLoading) {
+        button.textContent = button.textContent + "...";
+    } else {
+        button.textContent;
+    }
+}

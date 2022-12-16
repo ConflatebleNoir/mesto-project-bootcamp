@@ -1,6 +1,5 @@
-// Токен: 4a077796-6e98-44e5-9c13-60ffdba9f31a
-// Идентификатор группы: cohort-55
-
+import { submitButtonEditForm } from './variables.js';
+import { renderLoading } from './utils.js';
 //3. Загрузка информации о пользователе с сервера
 //Вызов данных пользователя и их рендер
 export const renderProfileInfo = () => {
@@ -85,7 +84,6 @@ export const postCard = (name, link) => {
             }
             return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .then(renderGroupCards)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
