@@ -65,7 +65,7 @@ export function addFormSubmit(evt) {
     closePopup(popupAddCard);
 };
 
-//Функция изменения данных аватара профиля
+//10. Функция изменения данных аватара профиля
 export function avatarFormSubmit(evt) {
     evt.preventDefault();
 

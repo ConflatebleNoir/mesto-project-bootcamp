@@ -151,7 +151,7 @@ export const deleteLike = (cardId) => {
 }
 
 export const patchUserAvatar = (avatarSrcAttribute) => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/users/me/", {
+    return fetch("https://nomoreparties.co/v1/cohort-55/users/me/avatar", {
         method: "PATCH",
         headers: {
             authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
