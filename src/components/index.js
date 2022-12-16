@@ -70,8 +70,8 @@ export function addFormSubmit(evt) {
     addCard(urlInput.value, titleInput.value);
     postCard(titleInput.value, urlInput.value)
         .finally(() => {
-            renderLoading(false, submitButtonAddForm)
             closePopup(popupAddCard);
+            renderLoading(false, submitButtonAddForm)
         })
     evt.target.reset();
 };
@@ -85,9 +85,9 @@ export function avatarFormSubmit(evt) {
     console.log(avatarProfile.getAttribute("src"))
     patchUserAvatar(avatarProfile.getAttribute("src"))
         .finally(() => {
-            renderLoading(false, submitButtonAddForm)
             closePopup(popupAvatar);
         })
+    renderLoading(false, submitButtonAddForm)
     evt.target.reset();
 };
 

@@ -1,5 +1,3 @@
-import { submitButtonEditForm } from './variables.js';
-import { renderLoading } from './utils.js';
 //3. Загрузка информации о пользователе с сервера
 //Вызов данных пользователя и их рендер
 export const renderProfileInfo = () => {

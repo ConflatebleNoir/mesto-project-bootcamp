@@ -38,6 +38,6 @@ export function renderLoading(isLoading, button) {
     if (isLoading) {
         button.textContent = button.textContent + "...";
     } else {
-        button.textContent;
+        button.textContent = button.textContent - "...";;
     }
 }
