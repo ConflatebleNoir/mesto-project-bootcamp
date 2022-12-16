@@ -41,3 +41,11 @@ export function renderLoading(isLoading, button) {
         button.textContent = button.textContent - "...";;
     }
 }
+
+//Проверка ответа
+export function checkResponse(res) {
+    if (res.ok) {
+        return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+};

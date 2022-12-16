@@ -34,17 +34,28 @@ import {
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
-import { openPopup, closePopup, renderLoading } from './utils.js';
+import { openPopup, closePopup, renderLoading, checkResponse } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
 
+let userID = renderProfileInfo()
+    .then((element) => {
+        return userID = element["_id"]
+    });
+
 renderProfileInfo()
     .then((element) => {
+        console.log(element)
         avatarProfile.setAttribute("src", `${element["avatar"]}`);
         nameProfile.textContent = element["name"];
         jobProfile.textContent = element["about"];
-        console.log(element.avatar)
+        console.log(element.avatar);
     })
+    .catch((res) => {
+        console.log(`Ошибка: ${res.status}`);
+    });
+
+console.log(userID);
 
 //Функция изменения данных профиля
 export function editFormSubmit(evt) {
@@ -54,8 +65,11 @@ export function editFormSubmit(evt) {
     jobProfile.textContent = jobInput.value;
 
     renderLoading(true, submitButtonEditForm)
-    console.log(renderLoading(true, submitButtonEditForm))
     patchUserInfo(nameProfile, jobProfile)
+        .then(renderProfileInfo)
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
         .finally(() => {
             closePopup(popupEditProfile);
             renderLoading(false, submitButtonEditForm)
@@ -69,6 +83,9 @@ export function addFormSubmit(evt) {
 
     addCard(urlInput.value, titleInput.value);
     postCard(titleInput.value, urlInput.value)
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
         .finally(() => {
             closePopup(popupAddCard);
             renderLoading(false, submitButtonAddForm)
@@ -84,6 +101,10 @@ export function avatarFormSubmit(evt) {
     avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
     console.log(avatarProfile.getAttribute("src"))
     patchUserAvatar(avatarProfile.getAttribute("src"))
+        .then(renderProfileInfo)
+        .catch((res) => {
+            console.log(`Ошибка: ${res.status}`);
+        })
         .finally(() => {
             closePopup(popupAvatar);
         })

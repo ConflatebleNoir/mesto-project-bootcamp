@@ -1,170 +1,85 @@
+'use strict';
+
+import { checkResponse } from "./utils.js";
+
+const config = {
+    baseUrl: "https://nomoreparties.co/v1/cohort-55",
+    headers: {
+        authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
+        "Content-Type": "application/json"
+    }
+}
+
 //3. Загрузка информации о пользователе с сервера
 //Вызов данных пользователя и их рендер
-export const renderProfileInfo = () => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+export function renderProfileInfo() {
+    return fetch(`${config.baseUrl}/users/me`, {
+        headers: config.headers
+    }).then(checkResponse)
 }
 
 // 4. Загрузка карточек с сервера
 //Вызов карточек пользователей и их рендер + рендер их значения лайков
-export const renderGroupCards = () => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+export function renderGroupCards() {
+    return fetch(`${config.baseUrl}/cards`, {
+        headers: config.headers
+    }).then(checkResponse)
 }
 
 // 5. Редактирование профиля
 //обновляем данные пользователя и получаем их
 export const patchUserInfo = (name, job) => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/users/me", {
+    return fetch(`${config.baseUrl}/users/me`, {
         method: "PATCH",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: `${name.textContent}`,
             about: `${job.textContent}`
         })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then(renderProfileInfo)
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+    }).then(checkResponse)
 }
 
 //6. Добавление новой карточки
 //отправка созданной карточки на сервер + обновляем список
 export const postCard = (name, link) => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/cards", {
+    return fetch(`${config.baseUrl}/cards`, {
         method: "POST",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: `${name}`,
             link: `${link}`
         })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+    }).then(checkResponse)
 }
-
 
 //удаление карточки с сервера
 export const removeUserCard = (cardID) => {
-    return fetch(`https://nomoreparties.co/v1/cohort-55/cards/${cardID}`, {
+    return fetch(`${config.baseUrl}/cards/${cardID}`, {
         method: "DELETE",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-type": "application/json"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+        headers: config.headers
+    }).then(checkResponse)
 }
 
 export const putLike = (cardId) => {
-    return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+        headers: config.headers
+    }).then(checkResponse)
 }
 
 export const deleteLike = (cardId) => {
-    return fetch(`https://nomoreparties.co/v1/cohort-55/cards/likes/${cardId}`, {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
-        }
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+        headers: config.headers
+    }).then(checkResponse)
 }
 
 export const patchUserAvatar = (avatarSrcAttribute) => {
     return fetch("https://nomoreparties.co/v1/cohort-55/users/me/avatar", {
         method: "PATCH",
-        headers: {
-            authorization: "4a077796-6e98-44e5-9c13-60ffdba9f31a",
-            "Content-Type": "application/json"
-        },
+        headers: config.headers,
         body: JSON.stringify({
             avatar: `${avatarSrcAttribute}`
         })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .then(renderProfileInfo)
-        .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
-        })
+    }).then(checkResponse)
 }
