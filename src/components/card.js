@@ -11,21 +11,28 @@ function setLikes(evt, cardID, element) {
     if (evt.target.classList.contains('card__like') && evt.target.classList.contains('card__like_active')) {
         evt.target.classList.remove('card__like_active');
         deleteLike(cardID)
+            .then((res) => {
+                console.log(res);
+                likesCount.textContent--;
+            })
             .catch(res => { console.log(res) });
-        likesCount.textContent--;
     } else {
         evt.target.classList.add('card__like_active');
         putLike(cardID)
+            .then((res) => {
+                console.log(res);
+                likesCount.textContent++;
+            })
             .catch(res => { console.log(res) });
-        likesCount.textContent++;
     }
 }
 
 function removeCard(evt, cardID) {
-    if (evt.target.classList.contains('card__trash')) {
+    console.log(evt.target.getAttribute("id"))
+    if (evt.target.classList.contains('card__trash') && cardID === evt.target.getAttribute("id")) {
         removeUserCard(cardID)
             .catch(res => { console.log(res) });
-        evt.currentTarget.remove()
+        evt.currentTarget.remove();
     };
 }
 
@@ -37,16 +44,14 @@ export function addCard(element, user) {
 
 // создание + рендер карточки
 function createCard(element, user) {
-    const currentCard = element;
-    const userID = user;
-
-    const currentCardOwner = currentCard.owner;
+    const currentCardOwner = element.owner;
     const currentCardOwnerID = currentCardOwner._id;
+    console.log(currentCardOwnerID)
 
-    const cardName = currentCard.name;
-    const imageCardSrc = currentCard.link;
-    const cardID = currentCard._id;
-    const arrayLikes = currentCard.likes;
+    const cardName = element.name;
+    const imageCardSrc = element.link;
+    const cardID = element._id;
+    const arrayLikes = element.likes;
     const likeValue = arrayLikes.length;
 
     const cardTemplate = document.querySelector('.card-template').content;
@@ -65,7 +70,7 @@ function createCard(element, user) {
         const userLike = element;
         const userLikeID = element._id;
 
-        if (userID === userLikeID) {
+        if (user === userLikeID) {
             cardLike.classList.add('card__like_active');
         } else {
             cardLike.classList.remove('card__like_active');
@@ -76,7 +81,7 @@ function createCard(element, user) {
         setLikes(evt, cardID, cardElement);
     });
 
-    if (userID === currentCardOwnerID) {
+    if (user === currentCardOwnerID) {
         cardElement.addEventListener('click', (evt) => {
             removeCard(evt, cardID);
         });

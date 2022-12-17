@@ -88,7 +88,8 @@ export function addFormSubmit(evt) {
 
     postCard(titleInput.value, urlInput.value)
         .then((res) => {
-            const currentUser = res._id;
+            console.log(res)
+            const currentUser = res.owner._id;
             const card = addCard(res, currentUser);
         })
         .catch((res) => {
@@ -109,14 +110,16 @@ export function avatarFormSubmit(evt) {
     avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
     console.log(avatarProfile.getAttribute("src"))
     patchUserAvatar(avatarProfile.getAttribute("src"))
-        .then(renderProfileInfo)
+        .then((res) => {
+            console.log(res)
+        })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
         .finally(() => {
             closePopup(popupAvatar);
+            renderLoading(false, submitButtonAddForm)
         })
-    renderLoading(false, submitButtonAddForm)
     evt.target.reset();
 };
 
