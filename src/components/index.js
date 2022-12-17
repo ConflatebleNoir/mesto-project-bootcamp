@@ -85,17 +85,18 @@ export function editFormSubmit(evt) {
 export function addFormSubmit(evt) {
     evt.preventDefault();
     renderLoading(true, submitButtonAddForm);
-    // const element = addCard(element, user);
 
-
-    addCard(titleInput.value, urlInput.value);
     postCard(titleInput.value, urlInput.value)
+        .then((res) => {
+            const currentUser = res._id;
+            const card = addCard(res, currentUser);
+        })
         .catch((res) => {
-            console.log(`Ошибка: ${res.status}`);
+            console.log(res);
         })
         .finally(() => {
             closePopup(popupAddCard);
-            renderLoading(false, submitButtonAddForm)
+            renderLoading(false, submitButtonAddForm);
         });
     evt.target.reset();
 };

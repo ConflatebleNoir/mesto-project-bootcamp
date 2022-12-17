@@ -36,9 +36,9 @@ export function closePopup(popup) {
 
 export function renderLoading(isLoading, button) {
     if (isLoading) {
-        button.textContent = button.textContent + "...";
+        button.textContent = "Сохранить...";
     } else {
-        button.textContent = button.textContent - "...";;
+        button.textContent = "Сохранить";;
     }
 }
 

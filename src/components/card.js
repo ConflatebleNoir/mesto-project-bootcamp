@@ -22,9 +22,10 @@ function setLikes(evt, cardID, element) {
 }
 
 function removeCard(evt, cardID) {
-    if (evt.target.classList.contains('card__trash') && cardID) {
-        evt.currentTarget.remove();
-        removeUserCard(cardID);
+    if (evt.target.classList.contains('card__trash')) {
+        removeUserCard(cardID)
+            .catch(res => { console.log(res) });
+        evt.currentTarget.remove()
     };
 }
 
@@ -33,6 +34,7 @@ export function addCard(element, user) {
     const cardElement = createCard(element, user);
     cardsContainer.prepend(cardElement);
 };
+
 // создание + рендер карточки
 function createCard(element, user) {
     const currentCard = element;
@@ -75,8 +77,7 @@ function createCard(element, user) {
     });
 
     if (userID === currentCardOwnerID) {
-        cardTrash.setAttribute("id", cardID);
-        cardTrash.addEventListener('click', (evt) => {
+        cardElement.addEventListener('click', (evt) => {
             removeCard(evt, cardID);
         });
     } else {
