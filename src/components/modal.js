@@ -18,7 +18,7 @@ export function closePopupByOverlayClick(evt, popup, form) {
 //Функция сокрытия окна, нажатием на Escape
 export function keyHandler(evt) {
     if (evt.key === 'Escape') {
-        const popupEsc = document.querySelector('.overlay')
+        const popupEsc = document.querySelector('.overlay');
         closePopup(popupEsc);
     };
 };
