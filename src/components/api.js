@@ -40,7 +40,7 @@ export const patchUserInfo = (name, job) => {
 }
 
 //6. Добавление новой карточки
-//отправка созданной карточки на сервер + обновляем список
+//отправка созданной карточки на сервер
 export const postCard = (name, link) => {
     return fetch(`${config.baseUrl}/cards`, {
         method: "POST",

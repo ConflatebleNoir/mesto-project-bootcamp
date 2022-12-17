@@ -2,83 +2,90 @@
 
 import { cardsContainer } from "./variables.js";
 import { imagePopupToggle } from "./modal.js";
-import { renderGroupCards, removeUserCard, putLike, deleteLike } from "./api.js"
+import { removeUserCard, putLike, deleteLike } from "./api.js"
 
-export function createCard(imageValue, titleValue, likeValue) {
+function setLikes(evt, cardID, element) {
+    const cardElement = element;
+    const likesCount = cardElement.querySelector('.card__like-count');
+
+    if (evt.target.classList.contains('card__like') && evt.target.classList.contains('card__like_active')) {
+        evt.target.classList.remove('card__like_active');
+        deleteLike(cardID)
+            .catch(res => { console.log(res) });
+        likesCount.textContent--;
+    } else {
+        evt.target.classList.add('card__like_active');
+        putLike(cardID)
+            .catch(res => { console.log(res) });
+        likesCount.textContent++;
+    }
+}
+
+function removeCard(evt, cardID) {
+    if (evt.target.classList.contains('card__trash') && cardID) {
+        evt.currentTarget.remove();
+        removeUserCard(cardID);
+    };
+}
+
+//функция добавления карточки
+export function addCard(element, user) {
+    const cardElement = createCard(element, user);
+    cardsContainer.prepend(cardElement);
+};
+// создание + рендер карточки
+function createCard(element, user) {
+    const currentCard = element;
+    const userID = user;
+
+    const currentCardOwner = currentCard.owner;
+    const currentCardOwnerID = currentCardOwner._id;
+
+    const cardName = currentCard.name;
+    const imageCardSrc = currentCard.link;
+    const cardID = currentCard._id;
+    const arrayLikes = currentCard.likes;
+    const likeValue = arrayLikes.length;
+
     const cardTemplate = document.querySelector('.card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
     const cardMask = cardElement.querySelector('.card__mask');
-    const likeCounter = cardElement.querySelector('.card__like-count');
+    const cardLike = cardElement.querySelector('.card__like');
+    const cardTrash = cardElement.querySelector('.card__trash');
 
-    cardMask.setAttribute("src", `${imageValue}`);
-    cardMask.setAttribute("alt", `${titleValue}`);
-    cardElement.querySelector('.card__title').textContent = titleValue;
-    likeCounter.textContent = likeValue.length;
+    cardMask.setAttribute("src", imageCardSrc);
+    cardMask.setAttribute("alt", cardName);
+    cardElement.querySelector('.card__title').textContent = cardName;
+    cardElement.querySelector('.card__like-count').textContent = likeValue;
 
-    cardElement.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('card__mask')) {
-            imagePopupToggle(evt.target, cardElement.querySelector('.card__title'));
+    arrayLikes.forEach((element) => {
+        const userLike = element;
+        const userLikeID = element._id;
+
+        if (userID === userLikeID) {
+            cardLike.classList.add('card__like_active');
+        } else {
+            cardLike.classList.remove('card__like_active');
         };
     });
 
+    cardLike.addEventListener('click', (evt) => {
+        setLikes(evt, cardID, cardElement);
+    });
+
+    if (userID === currentCardOwnerID) {
+        cardTrash.setAttribute("id", cardID);
+        cardTrash.addEventListener('click', (evt) => {
+            removeCard(evt, cardID);
+        });
+    } else {
+        cardTrash.remove();
+    };
+
+    cardMask.addEventListener('click', (evt) => {
+        imagePopupToggle(evt.target, cardElement.querySelector('.card__title'));
+    })
 
     return cardElement;
 };
-
-//функция рендера карточки
-export function addCard(imageValue, titleValue) {
-    //Поскольку изначально должно быть 0 лайков, то обозначим это
-    const countLikes = document.querySelector('.card__like-count');
-    countLikes.textContent = '0';
-
-    const cardElement = createCard(imageValue, titleValue, countLikes);
-    cardsContainer.prepend(cardElement);
-};
-
-renderGroupCards()
-    .then((elements) => {
-        console.log(elements)
-        elements.forEach((element) => {
-            const cardElement = createCard(element.link, element.name, element.likes);
-            const trash = cardElement.querySelector('.card__trash');
-            //8.1 Получение ID пользователя, посылаемый в рендер для запрета элемента удаления
-            if (element["owner"]["_id"] !== '5d05e97582a44e0e5de2165a') {
-                trash.remove();
-            };
-            //8.2 Удаление карточки
-            cardElement.addEventListener('click', (evt) => {
-                removeUserCard((element["_id"]))
-                    .then((res) => {
-                        if (evt.target.classList.contains('card__trash') && element["owner"]["_id"] === '5d05e97582a44e0e5de2165a') {
-                            evt.currentTarget.remove();
-                        };
-                        console.log(res)
-                    })
-                    .catch((res) => {
-                        console.log(`Ошибка: ${res.status}`);
-                    })
-            });
-
-            const likeCounter = cardElement.querySelector('.card__like-count');
-            //9. Постановка/снятие лайка (добавление данных пользователя в массив и удаление из массива лайков данных пользователя)
-            cardElement.addEventListener('click', (evt) => {
-                if (evt.target.classList.contains('card__like')) {
-                    if (evt.target.classList.contains('card__like_active')) {
-                        deleteLike(element["_id"]);
-                        evt.target.classList.remove('card__like_active');
-                        likeCounter.textContent--;
-                    } else {
-                        evt.target.classList.add('card__like_active');
-                        putLike(element["_id"]);
-                        likeCounter.textContent++;
-                    }
-                };
-            });
-
-            cardsContainer.append(cardElement);
-        });
-    })
-    .catch((res) => {
-        console.log(`Ошибка: ${res.status}`);
-    })

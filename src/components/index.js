@@ -34,28 +34,34 @@ import {
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
-import { openPopup, closePopup, renderLoading, checkResponse } from './utils.js';
+import { openPopup, closePopup, renderLoading } from './utils.js';
 import { enableValidation, setSubmitButtonState } from './validate.js';
-import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar } from './api.js'
+import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar, renderGroupCards } from './api.js'
 
-let userID = renderProfileInfo()
-    .then((element) => {
-        return userID = element["_id"]
-    });
+const userInfo = renderProfileInfo();
+const cardsInfo = renderGroupCards();
 
-renderProfileInfo()
-    .then((element) => {
-        console.log(element)
-        avatarProfile.setAttribute("src", `${element["avatar"]}`);
-        nameProfile.textContent = element["name"];
-        jobProfile.textContent = element["about"];
-        console.log(element.avatar);
+Promise.all([userInfo, cardsInfo])
+    .then((array) => {
+        const currentUser = array[0];
+        // const myProfile = currentUser;
+        const userAvatar = currentUser.avatar; // Получаем ссылку картинки аватара
+        const userName = currentUser.name; // Получаем name
+        const userJob = currentUser.about; // Получаем about
+        const userID = currentUser._id; // Получаем id пользователя
+        avatarProfile.setAttribute("src", userAvatar); // Устанавливаем полученное значение в элемент аватара
+        nameProfile.textContent = userName;
+        jobProfile.textContent = userJob;
+
+        const initialCards = array[1];
+        initialCards.forEach((element) => {
+            const currentCard = element;
+            const card = addCard(currentCard, userID);
+        });
     })
     .catch((res) => {
-        console.log(`Ошибка: ${res.status}`);
+        console.log(res);
     });
-
-console.log(userID);
 
 //Функция изменения данных профиля
 export function editFormSubmit(evt) {
@@ -66,7 +72,6 @@ export function editFormSubmit(evt) {
 
     renderLoading(true, submitButtonEditForm)
     patchUserInfo(nameProfile, jobProfile)
-        .then(renderProfileInfo)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
@@ -79,9 +84,11 @@ export function editFormSubmit(evt) {
 //Функция добавления карточки через модальное окно
 export function addFormSubmit(evt) {
     evt.preventDefault();
-    renderLoading(true, submitButtonAddForm)
+    renderLoading(true, submitButtonAddForm);
+    // const element = addCard(element, user);
 
-    addCard(urlInput.value, titleInput.value);
+
+    addCard(titleInput.value, urlInput.value);
     postCard(titleInput.value, urlInput.value)
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
@@ -89,7 +96,7 @@ export function addFormSubmit(evt) {
         .finally(() => {
             closePopup(popupAddCard);
             renderLoading(false, submitButtonAddForm)
-        })
+        });
     evt.target.reset();
 };
 
