@@ -13,6 +13,8 @@ import { setSubmitButtonState } from './validate'
 
 //Функция открытия попапов
 export function openPopup(popup) {
+
+    document.addEventListener('keydown', keyHandler);
     popup.classList.add('overlay');
     popup.classList.remove('overlay_hidden');
 
@@ -25,8 +27,6 @@ export function openPopup(popup) {
         const isValidAdd = titleInput.value.length >= 2 && urlInput.value.includes('https://');
         setSubmitButtonState(isValidAdd, submitButtonAddForm);
     });
-
-    document.addEventListener('keydown', keyHandler);
 };
 
 //Функция сокрытия попапов

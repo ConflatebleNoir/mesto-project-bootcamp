@@ -110,9 +110,6 @@ export function avatarFormSubmit(evt) {
     avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
     console.log(avatarProfile.getAttribute("src"))
     patchUserAvatar(avatarProfile.getAttribute("src"))
-        .then((res) => {
-            console.log(res)
-        })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })

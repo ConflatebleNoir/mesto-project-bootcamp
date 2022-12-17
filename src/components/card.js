@@ -44,14 +44,17 @@ export function addCard(element, user) {
 
 // создание + рендер карточки
 function createCard(element, user) {
-    const currentCardOwner = element.owner;
+    const currentCard = element;
+    const userID = user;
+
+    const currentCardOwner = currentCard.owner;
     const currentCardOwnerID = currentCardOwner._id;
     console.log(currentCardOwnerID)
 
-    const cardName = element.name;
-    const imageCardSrc = element.link;
-    const cardID = element._id;
-    const arrayLikes = element.likes;
+    const cardName = currentCard.name;
+    const imageCardSrc = currentCard.link;
+    const cardID = currentCard._id;
+    const arrayLikes = currentCard.likes;
     const likeValue = arrayLikes.length;
 
     const cardTemplate = document.querySelector('.card-template').content;
@@ -70,7 +73,7 @@ function createCard(element, user) {
         const userLike = element;
         const userLikeID = element._id;
 
-        if (user === userLikeID) {
+        if (userID === userLikeID) {
             cardLike.classList.add('card__like_active');
         } else {
             cardLike.classList.remove('card__like_active');
@@ -81,7 +84,8 @@ function createCard(element, user) {
         setLikes(evt, cardID, cardElement);
     });
 
-    if (user === currentCardOwnerID) {
+    if (userID === currentCardOwnerID) {
+        cardTrash.setAttribute("id", cardID);
         cardElement.addEventListener('click', (evt) => {
             removeCard(evt, cardID);
         });
