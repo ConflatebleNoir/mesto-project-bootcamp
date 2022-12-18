@@ -115,7 +115,7 @@ export function avatarFormSubmit(evt) {
         })
         .finally(() => {
             closePopup(popupAvatar);
-            renderLoading(false, submitButtonAddForm)
+            renderLoading(false, submitButtonAvatarForm)
         })
     evt.target.reset();
 };
