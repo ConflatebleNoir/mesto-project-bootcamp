@@ -9,18 +9,18 @@ function setLikes(evt, cardID, element) {
     const likesCount = cardElement.querySelector('.card__like-count');
 
     if (evt.target.classList.contains('card__like') && evt.target.classList.contains('card__like_active')) {
-        evt.target.classList.remove('card__like_active');
         deleteLike(cardID)
             .then((res) => {
                 console.log(res);
+                evt.target.classList.remove('card__like_active');
                 likesCount.textContent--;
             })
             .catch(res => { console.log(res) });
     } else {
-        evt.target.classList.add('card__like_active');
         putLike(cardID)
             .then((res) => {
                 console.log(res);
+                evt.target.classList.add('card__like_active');
                 likesCount.textContent++;
             })
             .catch(res => { console.log(res) });
@@ -28,11 +28,16 @@ function setLikes(evt, cardID, element) {
 }
 
 function removeCard(evt, cardID) {
-    console.log(evt.target.getAttribute("id"))
-    if (evt.target.classList.contains('card__trash') && cardID === evt.target.getAttribute("id")) {
+    const elementTarget = evt.target;
+    const currentItemRemove = elementTarget.closest('.card');
+    console.log(cardID);
+    if (evt.target.classList.contains('card__trash')) {
         removeUserCard(cardID)
+            .then((res) => {
+                console.log(res);
+                currentItemRemove.remove();
+            })
             .catch(res => { console.log(res) });
-        evt.currentTarget.remove();
     };
 }
 
@@ -49,7 +54,6 @@ function createCard(element, user) {
 
     const currentCardOwner = currentCard.owner;
     const currentCardOwnerID = currentCardOwner._id;
-    console.log(currentCardOwnerID)
 
     const cardName = currentCard.name;
     const imageCardSrc = currentCard.link;
@@ -85,8 +89,7 @@ function createCard(element, user) {
     });
 
     if (userID === currentCardOwnerID) {
-        cardTrash.setAttribute("id", cardID);
-        cardElement.addEventListener('click', (evt) => {
+        cardTrash.addEventListener('click', (evt) => {
             removeCard(evt, cardID);
         });
     } else {
