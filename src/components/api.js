@@ -59,21 +59,21 @@ export const removeUserCard = (cardID) => {
         headers: config.headers
     }).then(checkResponse)
 }
-
+//добавление инфо о лайке на сервер
 export const putLike = (cardId) => {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: config.headers
     }).then(checkResponse)
 }
-
+//удаление инфо о лайке на сервер
 export const deleteLike = (cardId) => {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: config.headers
     }).then(checkResponse)
 }
-
+//обновление инфо автара пользователя
 export const patchUserAvatar = (avatarSrcAttribute) => {
     return fetch(`${config.baseUrl}/users/me/avatar`, {
         method: "PATCH",
