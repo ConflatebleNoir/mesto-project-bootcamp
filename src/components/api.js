@@ -75,7 +75,7 @@ export const deleteLike = (cardId) => {
 }
 
 export const patchUserAvatar = (avatarSrcAttribute) => {
-    return fetch("https://nomoreparties.co/v1/cohort-55/users/me/avatar", {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
