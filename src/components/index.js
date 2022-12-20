@@ -13,8 +13,6 @@ import {
     urlInput,
     editButton,
     addButton,
-    imagePopup,
-    imageElement,
     editForm,
     submitButtonEditForm,
     addForm,
@@ -29,6 +27,7 @@ import { openPopup, closePopup, renderLoading } from './utils.js';
 import { enableValidation } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar, renderGroupCards } from './api.js'
 
+const popups = document.querySelectorAll('.popup');
 const userInfo = renderProfileInfo();
 const cardsInfo = renderGroupCards();
 
@@ -57,7 +56,6 @@ Promise.all([userInfo, cardsInfo])
 //Функция изменения данных профиля
 export function handleProfileFormSubmit(evt) {
     evt.preventDefault();
-
 
     renderLoading(true, submitButtonEditForm)
     patchUserInfo(nameInput, jobInput)
@@ -122,7 +120,6 @@ editButton.addEventListener('click', () => {
     jobInput.value = jobProfile.textContent;
 });
 
-const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {
