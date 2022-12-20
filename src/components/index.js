@@ -25,7 +25,6 @@ import {
     popupAvatar,
 } from './variables.js'
 import { addCard } from './card.js';
-import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup, renderLoading } from './utils.js';
 import { enableValidation } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar, renderGroupCards } from './api.js'
@@ -141,22 +140,6 @@ addButton.addEventListener('click', () => {
 
 avatarProfile.addEventListener('click', () => {
     openPopup(popupAvatar);
-});
-
-popupEditProfile.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, popupEditProfile, editForm);
-});
-
-popupAddCard.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, popupAddCard, addForm);
-});
-
-popupAvatar.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, popupAvatar, avatarForm)
-})
-
-imagePopup.addEventListener('click', (evt) => {
-    closePopupByOverlayClick(evt, imagePopup, imageElement);
 });
 
 editForm.addEventListener('submit', handleProfileFormSubmit);

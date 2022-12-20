@@ -1,19 +1,17 @@
 'use strict';
 
 import {
-    submitButtonEditForm,
-    submitButtonAddForm,
     nameInput,
     jobInput,
     titleInput,
     urlInput
 } from './variables.js';
-import { keyHandler } from "./modal.js";
+import { handleEscapeKey } from "./modal.js";
 
 //Функция открытия попапов
 export function openPopup(popup) {
 
-    document.addEventListener('keydown', keyHandler);
+    document.addEventListener('keydown', handleEscapeKey);
     popup.classList.add('popup_opened');
     popup.classList.remove('popup_hidden');
 

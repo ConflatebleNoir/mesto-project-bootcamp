@@ -1,7 +1,12 @@
 'use strict';
 
-import { cardsContainer } from "./variables.js";
-import { imagePopupToggle } from "./modal.js";
+import {
+    cardsContainer,
+    imagePopup,
+    imageElement,
+    imageTitle,
+} from "./variables.js";
+import { openPopup } from "./utils.js";
 import { removeUserCard, putLike, deleteLike } from "./api.js"
 
 function setLikes(evt, cardID, element) {
@@ -39,7 +44,15 @@ function removeCard(evt, cardID) {
             })
             .catch(res => { console.log(res) });
     };
-}
+};
+
+//Функция вывода изображения карточки в виде popup
+export function imagePopupToggle(item, title) {
+    imageElement.setAttribute("src", `${item.getAttribute("src")}`);
+    imageElement.setAttribute("alt", `${item.getAttribute("alt")}`);
+    imageTitle.textContent = title.textContent;
+    openPopup(imagePopup);
+};
 
 //функция добавления карточки
 export function addCard(element, user) {
