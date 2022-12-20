@@ -16,17 +16,17 @@ function setLikes(evt, cardID, element) {
     if (evt.target.classList.contains('card__like') && evt.target.classList.contains('card__like_active')) {
         deleteLike(cardID)
             .then((res) => {
-                console.log(res);
+                const likesArr = res.likes;
                 evt.target.classList.remove('card__like_active');
-                likesCount.textContent--;
+                likesCount.textContent = likesArr.length;
             })
             .catch(res => { console.log(res) });
     } else {
         putLike(cardID)
             .then((res) => {
-                console.log(res);
+                const likesArr = res.likes;
                 evt.target.classList.add('card__like_active');
-                likesCount.textContent++;
+                likesCount.textContent = likesArr.length;
             })
             .catch(res => { console.log(res) });
     }
