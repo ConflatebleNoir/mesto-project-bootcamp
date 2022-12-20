@@ -1,10 +1,10 @@
-.popup__image {
+.image-modal__item {
     max-width: 75vw;
     max-height: 75vh;
 }
 
 @media screen and (max-width: 321px) {
-    .popup__image {
+    .image-modal__item {
         flex-direction: column;
     }
 }

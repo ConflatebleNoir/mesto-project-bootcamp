@@ -1,6 +1,0 @@
-.overlay_hidden {
-    opacity: 0;
-    visibility: hidden;
-    position: fixed;
-    transition: .5s ease;
-}

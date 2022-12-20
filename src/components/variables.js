@@ -21,9 +21,9 @@ const addButton = document.querySelector('.profile__add-button');
 const editClose = popupEditProfile.querySelector('.popup-wrapper__close');
 const addClose = popupAddCard.querySelector('.popup-wrapper__close');
 // вытягиваем элементы попапа изображения
-const imagePopup = document.querySelector('#image-overlay');
-const imageElement = imagePopup.querySelector('.popup__image');
-const imageTitle = imagePopup.querySelector('.popup__title');
+const imagePopup = document.querySelector('#image-popup');
+const imageElement = document.querySelector('.image-modal__item');
+const imageTitle = document.querySelector('.image-modal__title');
 const imageClose = imagePopup.querySelector('.popup-wrapper__close');
 //Добавим формы и кнопки submit
 const editForm = document.forms.editForm;

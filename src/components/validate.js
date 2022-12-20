@@ -1,7 +1,5 @@
 'use strict';
 
-import { submitButtonEditForm, submitButtonAddForm, nameInput, jobInput, titleInput, urlInput } from './index.js';
-
 //Отобразим ошбику валидации формы 
 function showInputError(formElement, inputElement, errorMessage, data) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -34,6 +32,14 @@ function setEventListeners(formElement, data) {
 
     toggleButtonState(inputList, buttonElement, data);
 
+    formElement.addEventListener('reset', () => {
+        // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+        setTimeout(() => {
+            toggleButtonState(inputList, buttonElement, data);
+        }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+    });
+
+
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             checkValidity(formElement, inputElement, data);
@@ -62,19 +68,11 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonElement, data) {
     if (hasInvalidInput(inputList)) {
         buttonElement.classList.add(data.disabledButtonClass);
+        buttonElement.setAttribute('disabled', true);
     } else {
         buttonElement.classList.remove(data.disabledButtonClass);
+        buttonElement.setAttribute('disabled', true);
     };
 };
 
-function setSubmitButtonState(isFormValid, button) {
-    if (isFormValid) {
-        button.removeAttribute('disabled');
-        button.classList.remove(enableValidation.disabledButtonClass);
-    } else {
-        button.setAttribute('disabled', true);
-        button.classList.add(enableValidation.disabledButtonClass);
-    };
-};
-
-export { showInputError, hideInputError, checkValidity, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState, setSubmitButtonState };
+export { showInputError, hideInputError, checkValidity, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState };

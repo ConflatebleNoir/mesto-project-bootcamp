@@ -33,8 +33,8 @@ export const patchUserInfo = (name, job) => {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-            name: `${name.textContent}`,
-            about: `${job.textContent}`
+            name: `${name.value}`,
+            about: `${job.value}`
         })
     }).then(checkResponse)
 }
@@ -74,12 +74,12 @@ export const deleteLike = (cardId) => {
     }).then(checkResponse)
 }
 //обновление инфо автара пользователя
-export const patchUserAvatar = (avatarSrcAttribute) => {
+export const patchUserAvatar = (inputAvatar) => {
     return fetch(`${config.baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-            avatar: `${avatarSrcAttribute}`
+            avatar: `${inputAvatar.value}`
         })
     }).then(checkResponse)
 }

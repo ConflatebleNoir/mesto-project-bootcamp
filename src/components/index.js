@@ -11,31 +11,23 @@ import {
     popupAddCard,
     titleInput,
     urlInput,
-    cardsContainer,
     editButton,
     addButton,
-    editClose,
-    addClose,
     imagePopup,
     imageElement,
-    imageTitle,
-    imageClose,
     editForm,
     submitButtonEditForm,
     addForm,
     submitButtonAddForm,
     avatarForm,
     submitButtonAvatarForm,
-    editFormInput,
-    addFormInput,
     avatarFormInput,
     popupAvatar,
-    avatarClose
 } from './variables.js'
 import { addCard } from './card.js';
 import { closePopupByOverlayClick } from './modal.js';
 import { openPopup, closePopup, renderLoading } from './utils.js';
-import { enableValidation, setSubmitButtonState } from './validate.js';
+import { enableValidation } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar, renderGroupCards } from './api.js'
 
 const userInfo = renderProfileInfo();
@@ -64,25 +56,27 @@ Promise.all([userInfo, cardsInfo])
     });
 
 //Функция изменения данных профиля
-export function editFormSubmit(evt) {
+export function handleProfileFormSubmit(evt) {
     evt.preventDefault();
 
-    nameProfile.textContent = nameInput.value;
-    jobProfile.textContent = jobInput.value;
 
     renderLoading(true, submitButtonEditForm)
-    patchUserInfo(nameProfile, jobProfile)
+    patchUserInfo(nameInput, jobInput)
+        .then((res) => {
+            nameProfile.textContent = res.name;
+            jobProfile.textContent = res.about;
+            closePopup(popupEditProfile);
+        })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
         .finally(() => {
-            closePopup(popupEditProfile);
             renderLoading(false, submitButtonEditForm)
         })
 };
 
 //Функция добавления карточки через модальное окно
-export function addFormSubmit(evt) {
+export function handleAddFormSubmit(evt) {
     evt.preventDefault();
     renderLoading(true, submitButtonAddForm);
 
@@ -91,6 +85,7 @@ export function addFormSubmit(evt) {
             console.log(res)
             const currentUser = res.owner._id;
             const card = addCard(res, currentUser);
+            evt.target.reset();
         })
         .catch((res) => {
             console.log(res);
@@ -99,17 +94,19 @@ export function addFormSubmit(evt) {
             closePopup(popupAddCard);
             renderLoading(false, submitButtonAddForm);
         });
-    evt.target.reset();
 };
 
 //10. Функция изменения данных аватара профиля
-export function avatarFormSubmit(evt) {
+export function handleAvatarFormSubmit(evt) {
     evt.preventDefault();
     renderLoading(true, submitButtonAvatarForm)
 
-    avatarProfile.setAttribute("src", `${avatarFormInput.value}`);
-    console.log(avatarProfile.getAttribute("src"))
-    patchUserAvatar(avatarProfile.getAttribute("src"))
+    patchUserAvatar(avatarFormInput)
+        .then((res) => {
+            console.log(res);
+            avatarProfile.setAttribute("src", `${res.avatar}`);
+            evt.target.reset();
+        })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
@@ -117,7 +114,6 @@ export function avatarFormSubmit(evt) {
             closePopup(popupAvatar);
             renderLoading(false, submitButtonAvatarForm)
         })
-    evt.target.reset();
 };
 
 editButton.addEventListener('click', () => {
@@ -125,34 +121,27 @@ editButton.addEventListener('click', () => {
     //Перенесем данные из поля профиля в форму
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
-    setSubmitButtonState(true, submitButtonEditForm);
 });
 
-editClose.addEventListener('click', () => {
-    closePopup(popupEditProfile);
-});
+const popups = document.querySelectorAll('.popup');
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup);
+        }
+        if (evt.target.classList.contains('popup-wrapper__close')) {
+            closePopup(popup);
+        }
+    })
+})
 
 addButton.addEventListener('click', () => {
     openPopup(popupAddCard);
-    setSubmitButtonState(false, submitButtonAddForm);
-});
-
-addClose.addEventListener('click', () => {
-    closePopup(popupAddCard);
-});
-
-imageClose.addEventListener('click', () => {
-    closePopup(imagePopup);
 });
 
 avatarProfile.addEventListener('click', () => {
     openPopup(popupAvatar);
-    setSubmitButtonState(true, submitButtonAvatarForm);
 });
-
-avatarClose.addEventListener('click', () => {
-    closePopup(popupAvatar)
-})
 
 popupEditProfile.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, popupEditProfile, editForm);
@@ -170,9 +159,9 @@ imagePopup.addEventListener('click', (evt) => {
     closePopupByOverlayClick(evt, imagePopup, imageElement);
 });
 
-editForm.addEventListener('submit', editFormSubmit);
-addForm.addEventListener('submit', addFormSubmit);
-avatarForm.addEventListener('submit', avatarFormSubmit);
+editForm.addEventListener('submit', handleProfileFormSubmit);
+addForm.addEventListener('submit', handleAddFormSubmit);
+avatarForm.addEventListener('submit', handleAvatarFormSubmit);
 
 enableValidation({
     inputListSelector: '.form__element',
