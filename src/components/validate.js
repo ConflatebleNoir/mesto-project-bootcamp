@@ -71,7 +71,7 @@ function toggleButtonState(inputList, buttonElement, data) {
         buttonElement.setAttribute('disabled', true);
     } else {
         buttonElement.classList.remove(data.disabledButtonClass);
-        buttonElement.setAttribute('disabled', true);
+        buttonElement.removeAttribute('disabled');
     };
 };
 
