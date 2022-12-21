@@ -4,15 +4,12 @@ import { handleEscapeKey } from "./modal.js";
 
 //Функция открытия попапов
 export function openPopup(popup) {
-
     popup.classList.add('popup_opened');
-    popup.classList.remove('popup_hidden');
     document.addEventListener('keydown', handleEscapeKey);
 };
 
 //Функция сокрытия попапов
 export function closePopup(popup) {
-    popup.classList.add('popup_hidden');
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', handleEscapeKey);
 };

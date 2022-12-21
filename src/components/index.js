@@ -27,7 +27,7 @@ import { openPopup, closePopup, renderLoading } from './utils.js';
 import { enableValidation } from './validate.js';
 import { renderProfileInfo, patchUserInfo, postCard, patchUserAvatar, renderGroupCards } from './api.js'
 
-const popups = document.querySelectorAll('.popup');
+export const popups = document.querySelectorAll('.popup');
 const userInfo = renderProfileInfo();
 const cardsInfo = renderGroupCards();
 
@@ -79,16 +79,15 @@ export function handleAddFormSubmit(evt) {
 
     postCard(titleInput.value, urlInput.value)
         .then((res) => {
-            console.log(res)
             const currentUser = res.owner._id;
             const card = addCard(res, currentUser);
+            closePopup(popupAddCard);
             evt.target.reset();
         })
         .catch((res) => {
             console.log(res);
         })
         .finally(() => {
-            closePopup(popupAddCard);
             renderLoading(false, submitButtonAddForm);
         });
 };
@@ -100,15 +99,14 @@ export function handleAvatarFormSubmit(evt) {
 
     patchUserAvatar(avatarFormInput)
         .then((res) => {
-            console.log(res);
             avatarProfile.setAttribute("src", `${res.avatar}`);
+            closePopup(popupAvatar);
             evt.target.reset();
         })
         .catch((res) => {
             console.log(`Ошибка: ${res.status}`);
         })
         .finally(() => {
-            closePopup(popupAvatar);
             renderLoading(false, submitButtonAvatarForm)
         })
 };
